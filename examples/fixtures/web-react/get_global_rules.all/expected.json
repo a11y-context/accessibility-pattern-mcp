@@ -7,9 +7,7 @@
       "scopes_in_order": [
         "component",
         "layout",
-        "page",
-        "style",
-        "utility"
+        "screen"
       ]
     },
     "cache_ttl_seconds": 86400,
@@ -33,8 +31,7 @@
         ],
         "scope": [
           "component",
-          "layout",
-          "style"
+          "layout"
         ],
         "snippets": [],
         "title": "Focus Not Obscured"
@@ -53,8 +50,7 @@
           "The focus indicator must have a contrast ratio of at least 3:1 against adjacent colors."
         ],
         "scope": [
-          "component",
-          "style"
+          "component"
         ],
         "snippets": [
           {
@@ -91,8 +87,7 @@
           "Focus indicators follow `global.focus-states`, which carries its own required `forced-colors` override."
         ],
         "scope": [
-          "component",
-          "style"
+          "component"
         ],
         "snippets": [
           {
@@ -124,7 +119,7 @@
         ],
         "scope": [
           "layout",
-          "page"
+          "screen"
         ],
         "snippets": [],
         "title": "Heading Structure"
@@ -147,8 +142,7 @@
           "A meaningful icon carries the non-text contrast requirement in `global.non-text-contrast`. A decorative one does not."
         ],
         "scope": [
-          "component",
-          "style"
+          "component"
         ],
         "snippets": [
           {
@@ -181,7 +175,7 @@
         ],
         "scope": [
           "layout",
-          "page"
+          "screen"
         ],
         "snippets": [],
         "title": "Landmarks"
@@ -205,8 +199,7 @@
           "An element being animated out leaves the accessibility tree when it stops being available to the user, not when its exit animation finishes."
         ],
         "scope": [
-          "component",
-          "style"
+          "component"
         ],
         "snippets": [
           {
@@ -237,9 +230,7 @@
           "A boundary carried by `background-color` alone is restated under `@media (forced-colors: active)`, since Windows High Contrast Mode replaces author backgrounds and the boundary disappears rather than merely losing contrast. See `global.forced-colors`."
         ],
         "scope": [
-          "component",
-          "page",
-          "style"
+          "component"
         ],
         "snippets": [
           {
@@ -260,7 +251,7 @@
           "The page title begins with the name of the current page and is followed by the name of the site.\n  - Page name and site name should be separated using a clear visual character, such as a hyphen, emdash, or vertical pipe.\n  - Page name should be similar to the `<h1>` text on the page."
         ],
         "scope": [
-          "page"
+          "screen"
         ],
         "snippets": [],
         "title": "Page Title"
@@ -278,9 +269,7 @@
           "Offscreen text may be used as an alternative to `aria-labelledby` or `aria-label`."
         ],
         "scope": [
-          "component",
-          "style",
-          "utility"
+          "component"
         ],
         "snippets": [
           {
@@ -307,10 +296,7 @@
           "`forced-color-adjust: none` is not applied to text or its container, which would pin the authored text colors and prevent the user's palette from applying."
         ],
         "scope": [
-          "component",
-          "layout",
-          "page",
-          "style"
+          "component"
         ],
         "snippets": [],
         "title": "Text Contrast"
@@ -328,8 +314,7 @@
           "The additional cue is an icon, a shape, a border, or text rather than a second color treatment, so that it survives Windows High Contrast Mode. See `global.forced-colors`.\n  - Forced colors is the reason this rule has teeth beyond grayscale: a state shown by a background tint does not merely lose contrast there, it is repainted with the system color and disappears."
         ],
         "scope": [
-          "component",
-          "style"
+          "component"
         ],
         "snippets": [],
         "title": "Use of Color"

@@ -11,7 +11,7 @@ summary: "Baseline accessibility rules applied across most SwiftUI UI work."
 cache_ttl_seconds: 86400
 apply_policy:
   instruction: "Apply all MUST rules that match the current change scope. If the task does not touch a scope, do not introduce unrelated changes."
-  scopes_in_order: ["control", "layout", "component"]
+  scopes_in_order: ["screen", "layout", "component"]
 
 ---
 
@@ -25,7 +25,7 @@ Verification (audits, contrast measurement, on-device and human/LLM review) is a
 
 ```yaml
 id: global.touch-target-size
-scope: [control, component]
+scope: [component]
 ```
 
 ### Must Haves
@@ -41,7 +41,7 @@ scope: [control, component]
 
 ```yaml
 id: global.focus-visible
-scope: [control, component]
+scope: [component]
 ```
 
 ### Must Haves
@@ -54,7 +54,7 @@ scope: [control, component]
 
 ```yaml
 id: global.semantic-color
-scope: [control, layout, component]
+scope: [component]
 ```
 
 ### Must Haves
@@ -71,7 +71,7 @@ scope: [control, layout, component]
 
 ```yaml
 id: global.dynamic-type
-scope: [control, layout, component]
+scope: [layout, component]
 ```
 
 ### Must Haves
@@ -88,7 +88,7 @@ scope: [control, layout, component]
 
 ```yaml
 id: global.custom-control-representation
-scope: [control, component]
+scope: [component]
 ```
 
 ### Must Haves
@@ -104,7 +104,7 @@ scope: [control, component]
 
 ```yaml
 id: global.navigation-focus
-scope: [layout, component]
+scope: [screen]
 ```
 
 ### Must Haves
@@ -120,7 +120,7 @@ scope: [layout, component]
 
 ```yaml
 id: global.announcements
-scope: [layout, component]
+scope: [component]
 ```
 
 ### Must Haves
@@ -138,7 +138,7 @@ scope: [layout, component]
 
 ```yaml
 id: global.focus-management
-scope: [control, layout, component]
+scope: [layout, component]
 ```
 
 ### Must Haves
