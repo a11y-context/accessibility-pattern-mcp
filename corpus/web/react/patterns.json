@@ -1,7 +1,7 @@
 {
   "stack": "web/react",
   "schema_version": "1.0.0",
-  "catalog_revision": "0.5.2",
+  "catalog_revision": "0.26.0",
   "cache_ttl_seconds": 3600,
   "patterns": [
     {
@@ -39,11 +39,99 @@
       }
     },
     {
+      "id": "avatar.basic",
+      "title": "Avatar",
+      "pattern_type": "component",
+      "status": "beta",
+      "latest_version": "0.1.0",
+      "summary": "Image, initials, or glyph standing for a person or entity, where the accessible name identifies who is represented and stays the same whichever branch of the fallback chain renders.",
+      "aliases": [
+        "avatar",
+        "user avatar",
+        "profile picture",
+        "profile photo",
+        "profile image",
+        "initials avatar",
+        "monogram",
+        "gravatar"
+      ],
+      "tags": [
+        "avatar",
+        "identity",
+        "image",
+        "alt-text",
+        "initials",
+        "profile"
+      ],
+      "selection_excerpt": {
+        "use_when": [
+          "Use when an image, initials, or a glyph identifies a specific person (e.g., a comment author, an account holder, a viewer in a list) or a non-person entity (e.g., a channel, a team, or a brand account)."
+        ],
+        "do_not_use_when": [
+          "Do not use when activating the avatar performs an action or navigates elsewhere (use button.basic or link.basic).",
+          "Do not use when a status, presence, or count indicator sits on or beside the avatar (use badge.basic).",
+          "Do not use when avatars are stacked into a group with an overflow affordance such as \"+3\" (use avatar.group).",
+          "Do not use when the image is content the user is meant to look at rather than an identifier for someone, such as a poster, a thumbnail, or artwork (use collection-row.basic when it sits in a browse row)."
+        ]
+      },
+      "variants": [],
+      "default_variant": null,
+      "source": {
+        "path": "components/avatar.basic.md",
+        "format": "markdown",
+        "frontmatter": true
+      }
+    },
+    {
+      "id": "badge.basic",
+      "title": "Badge",
+      "pattern_type": "component",
+      "status": "beta",
+      "latest_version": "0.1.0",
+      "summary": "Small non-interactive indicator annotating a host element with a count or a status, where the meaning is folded into an accessible name and read on arrival rather than announced on change.",
+      "aliases": [
+        "badge",
+        "status badge",
+        "count badge",
+        "notification badge",
+        "unread count",
+        "status chip",
+        "lozenge",
+        "pill"
+      ],
+      "tags": [
+        "badge",
+        "count",
+        "status",
+        "indicator",
+        "notification-count"
+      ],
+      "selection_excerpt": {
+        "use_when": [
+          "Use when a small indicator on or beside another element reports a count for that element (e.g., unread messages on a mail icon, items in a cart).",
+          "Use when a small indicator reports a status of the element it annotates (e.g., \"Live\" on a channel tile, an online dot on an avatar, \"New\" on a menu entry)."
+        ],
+        "do_not_use_when": [
+          "Do not use when the user must be told about the change immediately, without navigating to the indicator (use toast.basic).",
+          "Do not use when the indicator can be selected, dismissed, or removed by the user (use tag.basic).",
+          "Do not use when the element is supplementary text revealed on hover or focus of another control (use tooltip.basic).",
+          "Do not use when the indicator is the control the user activates, such as a filter that toggles on click (use button.toggle)."
+        ]
+      },
+      "variants": [],
+      "default_variant": null,
+      "source": {
+        "path": "components/badge.basic.md",
+        "format": "markdown",
+        "frontmatter": true
+      }
+    },
+    {
       "id": "button.basic",
       "title": "Basic Button",
       "pattern_type": "component",
       "status": "beta",
-      "latest_version": "0.2.1",
+      "latest_version": "0.2.2",
       "summary": "Native button that triggers an action. Supports text-only, icon+text, and icon-only labeling patterns.",
       "aliases": [
         "btn",
@@ -63,7 +151,7 @@
           "Use when the user triggers an immediate action (e.g., \"Save\", \"Continue\", \"Dismiss\")."
         ],
         "do_not_use_when": [
-          "Do not use when the control navigates to a new URL (use link).",
+          "Do not use when the control navigates to a new URL (use link.basic).",
           "Do not use when the control represents an on/off pressed state (use button.toggle).",
           "Do not use when the control opens a menu (use menu.basic)."
         ]
@@ -81,7 +169,7 @@
       "title": "Toggle Button",
       "pattern_type": "component",
       "status": "beta",
-      "latest_version": "0.2.1",
+      "latest_version": "0.2.2",
       "summary": "Two- or three-state button that toggles between pressed and not pressed using aria-pressed.",
       "aliases": [
         "toggle button",
@@ -99,7 +187,7 @@
           "Use when a control toggles a feature or action within the current context (e.g., \"Mute\", \"Bold\", \"Pin\", \"Enable Closed Captioning\")."
         ],
         "do_not_use_when": [
-          "Do not use when the control navigates to a new URL (use link).",
+          "Do not use when the control navigates to a new URL (use link.basic).",
           "Do not use when the control represents a persistent on/off system or application setting, such as \"Enable notifications\", \"Dark mode\" (use switch.basic).",
           "Do not use when the control records a value to submit with a form rather than toggling something in the current context (use checkbox.basic).",
           "Do not use when the control opens a menu (use menu.basic)."
@@ -194,6 +282,97 @@
       "default_variant": null,
       "source": {
         "path": "components/carousel.thumbnails.md",
+        "format": "markdown",
+        "frontmatter": true
+      }
+    },
+    {
+      "id": "checkbox.basic",
+      "title": "Checkbox",
+      "pattern_type": "component",
+      "status": "beta",
+      "latest_version": "0.1.0",
+      "summary": "A single binary checkbox for an independent on/off choice submitted with a form. Uses a native <input type=\"checkbox\"> with an associated <label>, or role=\"checkbox\" with aria-checked when a native input cannot be used.",
+      "aliases": [
+        "checkbox",
+        "check box",
+        "tickbox",
+        "agree to terms",
+        "remember me",
+        "opt-in",
+        "consent checkbox",
+        "boolean input"
+      ],
+      "tags": [
+        "checkbox",
+        "form",
+        "form-control",
+        "boolean",
+        "consent",
+        "selection"
+      ],
+      "selection_excerpt": {
+        "use_when": [
+          "Use when a single control records an independent yes/no choice that is submitted with a form rather than taking effect immediately (e.g., \"I agree to the Terms of Service\", \"Remember me on this device\", \"Email me about new releases\").",
+          "Use when the control's label is self-sufficient, including when several such independent checkboxes appear in the same form.",
+          "Use when both the checked and unchecked values are meaningful and are read when the form is submitted."
+        ],
+        "do_not_use_when": [
+          "Do not use when several checkboxes answer one shared question and their labels are not meaningful without it (use checkbox.group).",
+          "Do not use when toggling the control takes effect immediately as a persistent setting rather than a value submitted with a form (use switch.basic).",
+          "Do not use when the control toggles a feature, tool, or formatting state in the current context rather than recording a value to submit (use button.toggle).",
+          "Do not use when a third \"mixed\" or \"partially checked\" state is required, such as a parent reflecting a mix of checked children (use checkbox.tristate)."
+        ]
+      },
+      "variants": [],
+      "default_variant": null,
+      "source": {
+        "path": "components/checkbox.basic.md",
+        "format": "markdown",
+        "frontmatter": true
+      }
+    },
+    {
+      "id": "checkbox.group",
+      "title": "Checkbox Group",
+      "pattern_type": "component",
+      "status": "beta",
+      "latest_version": "0.1.0",
+      "summary": "A set of related checkboxes that together answer one question. The group is named with <fieldset> and <legend>, or role=\"group\" with aria-labelledby, and each option is an independent native <input type=\"checkbox\">.",
+      "aliases": [
+        "checkbox group",
+        "checkbox list",
+        "multi-select checkboxes",
+        "fieldset checkboxes",
+        "options list",
+        "select multiple",
+        "preferences checkboxes"
+      ],
+      "tags": [
+        "checkbox",
+        "form",
+        "form-control",
+        "group",
+        "fieldset",
+        "multi-select"
+      ],
+      "selection_excerpt": {
+        "use_when": [
+          "Use when several checkboxes together answer one question and each option's label is not meaningful without that shared question (e.g., \"Which genres do you watch?\" with \"Action\", \"Comedy\", \"Drama\").",
+          "Use when the user may select zero, one, or many options from the set.",
+          "Use when the set needs a single visible group label, and sometimes group-level validation (e.g., \"Select at least one\")."
+        ],
+        "do_not_use_when": [
+          "Do not use when a single, self-sufficient checkbox captures the choice (use checkbox.basic).",
+          "Do not use when exactly one option may be selected from the set (use radio.group).",
+          "Do not use when each toggle is a persistent setting that takes effect immediately rather than a value submitted with a form (use switch.basic).",
+          "Do not use when the choices are presented inside a popup opened from a trigger (use select.basic, or a dedicated multi-select pattern for many values)."
+        ]
+      },
+      "variants": [],
+      "default_variant": null,
+      "source": {
+        "path": "components/checkbox.group.md",
         "format": "markdown",
         "frontmatter": true
       }
@@ -294,16 +473,19 @@
       }
     },
     {
-      "id": "dialog.modal",
-      "title": "Dialog (Modal)",
+      "id": "dialog.basic",
+      "title": "Dialog (Basic)",
       "pattern_type": "component",
       "status": "beta",
-      "latest_version": "0.3.1",
+      "latest_version": "0.1.0",
       "summary": "User-initiated blocking dialog. Uses the native <dialog> element with .showModal() so the browser handles focus trap, background inertness, Escape dismissal, focus restoration, and top-layer rendering.",
       "aliases": [
         "dialog",
         "modal",
-        "pop-up"
+        "modal dialog",
+        "pop-up",
+        "blocking overlay",
+        "show-modal"
       ],
       "tags": [
         "dialog",
@@ -322,8 +504,8 @@
           "Use when the user must explicitly complete or dismiss the dialog before returning to the main interface."
         ],
         "do_not_use_when": [
-          "Do not use when the content is part of the normal page flow and does not block background interaction.",
-          "Do not use when presenting brief, non-blocking status messages that do not require focus movement (use toast or snackbar).",
+          "Do not use when the content is part of the normal page flow and does not block background interaction (use popover.basic).",
+          "Do not use when presenting brief, non-blocking status messages that do not require focus movement (use toast.basic).",
           "Do not use when the message is urgent and requires immediate acknowledgment (use dialog.alert).",
           "Do not use when the interaction involves complex, multi-step workflows spanning multiple screens."
         ]
@@ -331,53 +513,7 @@
       "variants": [],
       "default_variant": null,
       "source": {
-        "path": "components/dialog.modal.md",
-        "format": "markdown",
-        "frontmatter": true
-      }
-    },
-    {
-      "id": "dialog.nonmodal",
-      "title": "Dialog (Non-Modal)",
-      "pattern_type": "component",
-      "status": "beta",
-      "latest_version": "0.1.0",
-      "summary": "A dialog that does not block the page; uses role=\"dialog\" with an accessible name, moves focus in on open and restores it on close, but does not trap focus or inert the background.",
-      "aliases": [
-        "non-modal dialog",
-        "modeless dialog",
-        "non-blocking dialog",
-        "popover dialog",
-        "editor popover",
-        "composer panel",
-        "floating panel"
-      ],
-      "tags": [
-        "dialog",
-        "non-modal",
-        "overlay",
-        "popover",
-        "focus-restoration",
-        "modeless"
-      ],
-      "selection_excerpt": {
-        "use_when": [
-          "Use when an overlay presents content or a task without blocking the page (e.g., a non-blocking editor popover, a composer, a rich panel with interactive controls).",
-          "Use when the user can keep interacting with the rest of the page while the overlay is open.",
-          "Use when focus should move into the dialog on open but not be trapped there."
-        ],
-        "do_not_use_when": [
-          "Do not use when the user must complete or dismiss the overlay before returning to the page (use dialog.modal).",
-          "Do not use when a control simply shows and hides inline content (use disclosure.basic).",
-          "Do not use when the overlay is a menu of commands (use menu.basic).",
-          "Do not use when the message is a brief, non-interactive status update (use toast.basic).",
-          "Do not use when the content is a plain-text supplementary hint (use tooltip.basic)."
-        ]
-      },
-      "variants": [],
-      "default_variant": null,
-      "source": {
-        "path": "components/dialog.nonmodal.md",
+        "path": "components/dialog.basic.md",
         "format": "markdown",
         "frontmatter": true
       }
@@ -474,7 +610,7 @@
       "title": "Link",
       "pattern_type": "component",
       "status": "beta",
-      "latest_version": "0.2.0",
+      "latest_version": "0.2.1",
       "summary": "Native link for navigation using <a href>. Supports optional context in the accessible name, including \"opens in new tab/window/dialog\".",
       "aliases": [
         "anchor",
@@ -493,8 +629,8 @@
           "Use when the primary purpose of the element is destination-based navigation rather than performing an action."
         ],
         "do_not_use_when": [
-          "Do not use when activating the element performs an in-place action such as submitting, saving, deleting, toggling, or opening a dialog (use button).",
-          "Do not use when the element changes UI state without navigation (use button)."
+          "Do not use when activating the element performs an in-place action such as submitting, saving, deleting, toggling, or opening a dialog (use button.basic).",
+          "Do not use when the element changes UI state without navigation (use button.basic)."
         ]
       },
       "variants": [],
@@ -732,42 +868,139 @@
       }
     },
     {
-      "id": "select.basic",
-      "title": "Select",
+      "id": "pin-input.basic",
+      "title": "PIN Input",
       "pattern_type": "component",
       "status": "beta",
-      "latest_version": "0.2.0",
-      "summary": "A custom-styled form select that matches native <select> behavior using a button trigger + listbox popup, and a visually hidden native <select> for form submission and browser autofill.",
+      "latest_version": "0.1.0",
+      "summary": "A fixed-length numeric code entered across segmented boxes, implemented as a single <input> whose expected length is carried in a description rather than by the box count, with the boxes and any group separator rendered as aria-hidden presentation.",
       "aliases": [
-        "form select",
-        "styled select",
-        "listbox select",
-        "dropdown select"
+        "pin entry",
+        "passcode field",
+        "otp input",
+        "one-time code input",
+        "verification code input",
+        "2fa code entry",
+        "segmented code input",
+        "security code boxes"
       ],
       "tags": [
-        "select",
+        "pin",
+        "otp",
         "form",
-        "form-select",
-        "listbox",
-        "dropdown"
+        "form-control",
+        "authentication",
+        "numeric"
       ],
       "selection_excerpt": {
         "use_when": [
-          "Use when a form input must allow selecting **one option** from a predefined set.",
-          "Use when the options are short labels and the selection is discrete (not freeform text).",
-          "Use for primary or secondary forms anywhere on a site or application."
+          "Use when the user enters a short numeric code of a known fixed length across segmented boxes (e.g., \"Parental control PIN\", \"Profile lock\", \"Purchase confirmation\").",
+          "Use when a verification code delivered out of band is entered (e.g., \"Enter the 6-digit code we texted you\")."
         ],
         "do_not_use_when": [
-          "Do not use when a native <select> styled with CSS meets the need (use select.native).",
-          "Do not use when the user needs to type to filter a large list (use combobox.autocomplete).",
-          "Do not use when multiple selections are required (use listbox.basic).",
-          "Do not use for navigation menus or account menus (use navigation-menu.basic or navigation-menu.dropdown)."
+          "Do not use when the value has no fixed length, such as free-form text, an arbitrary number, or an account password (no pattern is needed; use a native <input> with a visible <label> and the Foundations rules).",
+          "Do not use when the requirement is collecting and summarizing errors across several fields rather than validating one code field (use form.error-summary)."
         ]
       },
       "variants": [],
       "default_variant": null,
       "source": {
-        "path": "components/select.basic.md",
+        "path": "components/pin-input.basic.md",
+        "format": "markdown",
+        "frontmatter": true
+      }
+    },
+    {
+      "id": "popover.basic",
+      "title": "Popover",
+      "pattern_type": "component",
+      "status": "beta",
+      "latest_version": "0.1.0",
+      "summary": "A non-modal overlay anchored to its trigger; uses role=\"dialog\" with an accessible name, moves focus in on open and restores it on close, but does not trap focus or inert the background.",
+      "aliases": [
+        "popover",
+        "anchored overlay",
+        "floating panel",
+        "editor popover",
+        "composer panel",
+        "non-modal dialog",
+        "modeless dialog",
+        "popup panel"
+      ],
+      "tags": [
+        "popover",
+        "overlay",
+        "non-modal",
+        "anchored",
+        "focus-restoration",
+        "disclosure"
+      ],
+      "selection_excerpt": {
+        "use_when": [
+          "Use when an overlay anchored to a trigger presents content or a task without blocking the page (e.g., an editor popover, a composer, a rich panel with interactive controls).",
+          "Use when the user can keep interacting with the rest of the page while the overlay is open.",
+          "Use when focus should move into the overlay on open but not be trapped there."
+        ],
+        "do_not_use_when": [
+          "Do not use when the user must complete or dismiss the overlay before returning to the page (use dialog.basic).",
+          "Do not use when a control simply shows and hides inline content (use disclosure.basic).",
+          "Do not use when the overlay is a menu of commands (use menu.basic).",
+          "Do not use when the message is a brief, non-interactive status update (use toast.basic).",
+          "Do not use when the content is a plain-text supplementary hint (use tooltip.basic)."
+        ]
+      },
+      "variants": [],
+      "default_variant": null,
+      "source": {
+        "path": "components/popover.basic.md",
+        "format": "markdown",
+        "frontmatter": true
+      }
+    },
+    {
+      "id": "progress-bar.basic",
+      "title": "Progress Bar",
+      "pattern_type": "component",
+      "status": "beta",
+      "latest_version": "0.1.0",
+      "summary": "Non-interactive indicator of a process advancing toward completion, using the native <progress> element or role=\"progressbar\" with aria-valuenow, and announcing completion through a separate live region rather than on every value change.",
+      "aliases": [
+        "progress bar",
+        "progress indicator",
+        "loading bar",
+        "loading indicator",
+        "upload progress",
+        "download progress",
+        "percent complete",
+        "indeterminate progress"
+      ],
+      "tags": [
+        "progress",
+        "progressbar",
+        "loading",
+        "status",
+        "live-region",
+        "reduced-motion"
+      ],
+      "selection_excerpt": {
+        "use_when": [
+          "Use when a process the user started reports how far it has advanced toward a known end point (e.g., \"Uploading 3 of 8 files\", a download at 47%).",
+          "Use when a process the user started is running with no knowable end point, and a bar communicates that work is still underway (e.g., a form submitting, a report generating).",
+          "Use when the value advances on its own and the user cannot set, drag, or type it."
+        ],
+        "do_not_use_when": [
+          "Do not use when the user sets or changes the value by dragging or with arrow keys (use slider.basic).",
+          "Do not use when the value is a static measurement within a known range rather than progress toward completion, such as disk usage, storage quota, or battery level (use meter.basic).",
+          "Do not use when the indicator is a small glyph inside a button or panel that already carries its own label, added only to show that button or panel is working, such as a spinner inside a Save button while it submits (use spinner.basic).",
+          "Do not use when grey shapes stand in for the layout of the content itself, such as bars where lines of text will appear and a block where an image will load (use skeleton.basic).",
+          "Do not use when the bar shows position within playing media and the user can seek to a point in it (use slider.seek).",
+          "Do not use when the display shows which step of a multi-step sequence the user has reached (use stepper.basic)."
+        ]
+      },
+      "variants": [],
+      "default_variant": null,
+      "source": {
+        "path": "components/progress-bar.basic.md",
         "format": "markdown",
         "frontmatter": true
       }
@@ -819,11 +1052,190 @@
       }
     },
     {
+      "id": "select.basic",
+      "title": "Select",
+      "pattern_type": "component",
+      "status": "beta",
+      "latest_version": "0.2.0",
+      "summary": "A custom-styled form select that matches native <select> behavior using a button trigger + listbox popup, and a visually hidden native <select> for form submission and browser autofill.",
+      "aliases": [
+        "form select",
+        "styled select",
+        "listbox select",
+        "dropdown select"
+      ],
+      "tags": [
+        "select",
+        "form",
+        "form-select",
+        "listbox",
+        "dropdown"
+      ],
+      "selection_excerpt": {
+        "use_when": [
+          "Use when a form input must allow selecting one option from a predefined set.",
+          "Use when the options are short labels and the selection is discrete (not freeform text).",
+          "Use for primary or secondary forms anywhere on a site or application."
+        ],
+        "do_not_use_when": [
+          "Do not use when a native <select> styled with CSS meets the need (use select.native).",
+          "Do not use when the user needs to type to filter a large list (use combobox.autocomplete).",
+          "Do not use when multiple selections are required (use listbox.basic).",
+          "Do not use for navigation menus or account menus (use navigation-menu.basic or navigation-menu.dropdown)."
+        ]
+      },
+      "variants": [],
+      "default_variant": null,
+      "source": {
+        "path": "components/select.basic.md",
+        "format": "markdown",
+        "frontmatter": true
+      }
+    },
+    {
+      "id": "separator.basic",
+      "title": "Separator",
+      "pattern_type": "component",
+      "status": "beta",
+      "latest_version": "0.1.0",
+      "summary": "Static line separating sections of content, rendered as an hr and hidden from assistive technology unless the line itself is the only thing marking the boundary.",
+      "aliases": [
+        "divider",
+        "horizontal rule",
+        "hr",
+        "rule",
+        "hairline",
+        "section break",
+        "thematic break",
+        "vertical divider",
+        "list divider",
+        "menu divider"
+      ],
+      "tags": [
+        "separator",
+        "divider",
+        "thematic-break",
+        "structure",
+        "semantics"
+      ],
+      "selection_excerpt": {
+        "use_when": [
+          "Use when a visible line marks a break between sections of content (e.g., between entries in a feed, or between groups of settings on a preferences screen).",
+          "Use when a line separates groups of items or controls inside a container (e.g., separating destructive actions from the rest of a menu)."
+        ],
+        "do_not_use_when": [
+          "Do not use when the divider can be moved by the user to resize the regions on either side of it, which is a focusable widget with a value and a keyboard model rather than a static line (use splitter.basic).",
+          "Do not use when the line is a border belonging to a single element, such as a card edge, an input underline, or a rule between table cells. That is styling on that element rather than a break between two things, and it needs no separator semantics."
+        ]
+      },
+      "variants": [],
+      "default_variant": null,
+      "source": {
+        "path": "components/separator.basic.md",
+        "format": "markdown",
+        "frontmatter": true
+      }
+    },
+    {
+      "id": "spinner.basic",
+      "title": "Spinner",
+      "pattern_type": "component",
+      "status": "beta",
+      "latest_version": "0.1.0",
+      "summary": "Indeterminate loading glyph that carries no semantics of its own, where the graphic is decorative and the control or region hosting it reports the wait through aria-busy and a separate live region.",
+      "aliases": [
+        "spinner",
+        "loading spinner",
+        "loading indicator",
+        "busy indicator",
+        "activity indicator",
+        "throbber",
+        "loader",
+        "button loading state"
+      ],
+      "tags": [
+        "spinner",
+        "loading",
+        "busy",
+        "status",
+        "live-region",
+        "reduced-motion"
+      ],
+      "selection_excerpt": {
+        "use_when": [
+          "Use when a control the user activated stays busy long enough that the user would otherwise wonder whether it worked, and the wait has no knowable end point (e.g., a Save button submitting, a Sign in button authenticating).",
+          "Use when a region is fetching or replacing its content with no knowable end point, and the region keeps its place in the layout (e.g., a results panel reloading after a filter change).",
+          "Use when the button or region the indicator sits in already names what is loading, so the indicator itself needs no label."
+        ],
+        "do_not_use_when": [
+          "Do not use when the process reports how far it has advanced toward a known end point (use progress-bar.basic).",
+          "Do not use when the indicator has its own label naming the work and its own place in the layout, whether or not it reports a value, such as a labeled bar beneath \"Uploading episode files\" or a labeled ring for a sync that is running (use progress-bar.basic).",
+          "Do not use when grey shapes stand in for the layout of the content itself, such as bars where lines of text will appear and a block where an image will load (use skeleton.basic).",
+          "Do not use when several regions of one view would each show their own spinner at the same time (use skeleton.basic).",
+          "Do not use when the message reports the outcome of finished work rather than work still in progress (use toast.basic)."
+        ]
+      },
+      "variants": [],
+      "default_variant": null,
+      "source": {
+        "path": "components/spinner.basic.md",
+        "format": "markdown",
+        "frontmatter": true
+      }
+    },
+    {
+      "id": "splitter.basic",
+      "title": "Splitter",
+      "pattern_type": "component",
+      "status": "beta",
+      "latest_version": "0.1.0",
+      "summary": "Moveable divider between two panes that changes their relative size, using a focusable role=\"separator\" with aria-valuenow, aria-controls, and arrow-key movement.",
+      "aliases": [
+        "split panel",
+        "split pane",
+        "split view",
+        "window splitter",
+        "splitter bar",
+        "resizable panes",
+        "pane divider",
+        "resize handle",
+        "drag handle",
+        "gutter",
+        "sash"
+      ],
+      "tags": [
+        "splitter",
+        "resizable-panes",
+        "window-splitter",
+        "drag-alternative",
+        "keyboard"
+      ],
+      "selection_excerpt": {
+        "use_when": [
+          "Use when a moveable divider lets the user change the relative size of two adjacent panes (e.g., an episode list beside an episode detail view, or a player beside a live chat panel).",
+          "Use when a divider moves between a small set of layout positions rather than any value in a range (e.g., a three-stop divider for left pane only, both panes, and right pane only)."
+        ],
+        "do_not_use_when": [
+          "Do not use when the divider is a static line the user cannot move, which is the common case for anything a design system calls a separator or divider (use separator.basic).",
+          "Do not use when the divider has only two positions, expanded and collapsed, which is a show/hide control rather than a position with a value (use disclosure.basic for the toggle, and separator.basic for the line beside it).",
+          "Do not use when the control sets a value in the content rather than a layout size, such as a volume level, a playback position, or a price filter (use slider.basic).",
+          "Do not use when the two regions are resized by a control that is not positioned between them, such as a button in a toolbar that expands a panel (use disclosure.basic)."
+        ]
+      },
+      "variants": [],
+      "default_variant": null,
+      "source": {
+        "path": "components/splitter.basic.md",
+        "format": "markdown",
+        "frontmatter": true
+      }
+    },
+    {
       "id": "switch.basic",
       "title": "Switch",
       "pattern_type": "component",
       "status": "beta",
-      "latest_version": "0.3.0",
+      "latest_version": "0.3.1",
       "summary": "Two-state on/off control representing a persistent setting. Uses role=\"switch\" with aria-checked, or native checkbox semantics when applicable.",
       "aliases": [
         "toggle switch",
@@ -859,40 +1271,137 @@
       }
     },
     {
+      "id": "tabs.basic",
+      "title": "Tabs",
+      "pattern_type": "component",
+      "status": "beta",
+      "latest_version": "0.1.0",
+      "summary": "Same-page sections where one panel is visible at a time, using role=\"tablist\", role=\"tab\", and role=\"tabpanel\" with aria-selected, a roving tabindex, and arrow-key traversal.",
+      "aliases": [
+        "tabbed interface",
+        "tab panel",
+        "tab bar",
+        "view switcher",
+        "content switcher",
+        "segmented control",
+        "pill navigation",
+        "browse tabs"
+      ],
+      "tags": [
+        "tabs",
+        "tablist",
+        "roving-tabindex",
+        "view-switching",
+        "disclosure",
+        "segmented-control"
+      ],
+      "selection_excerpt": {
+        "use_when": [
+          "Use when a large amount of same-page content divides into a few clearly labeled sections at the same level, and the user views one section at a time (e.g., \"Episodes\", \"Details\", and \"More Like This\" on a title page).",
+          "Use when one collection is presented through several filtered or status-partitioned views of the same kind of item (e.g., \"Continue Watching\", \"Saved\", and \"Downloads\" in a personal list).",
+          "Use when the sections are consulted regularly by returning users, and the sections that start hidden are supplemental rather than critical.",
+          "Use when switching between sections keeps the user in place, without loading a different URL or reloading the page."
+        ],
+        "do_not_use_when": [
+          "Do not use when each tab is a link that loads a different URL or route (use navigation-menu.basic, or navigation-menu.dropdown when the navigation opens from a trigger).",
+          "Do not use when the sections are steps in a sequence the user works through in order (use stepper.basic).",
+          "Do not use when sections stack vertically and expand or collapse independently, with more than one open at a time (use accordion.basic, or disclosure.basic for a single show/hide section).",
+          "Do not use when the control records a choice such as a filter value, a form field, or a setting rather than displaying a different panel of content (use radio.group, or select.native when one value is picked from a list)."
+        ]
+      },
+      "variants": [],
+      "default_variant": null,
+      "source": {
+        "path": "components/tabs.basic.md",
+        "format": "markdown",
+        "frontmatter": true
+      }
+    },
+    {
       "id": "toast.basic",
       "title": "Toast",
       "pattern_type": "component",
       "status": "beta",
-      "latest_version": "0.1.0",
-      "summary": "Temporary, non-blocking status message announced via live region. May include optional dismiss control. Disappears automatically.",
+      "latest_version": "0.3.0",
+      "summary": "Temporary, non-blocking status message carrying no action beyond an optional dismiss control, announced through a text-only live region and disappearing on its own.",
       "aliases": [
         "notification",
         "toast",
         "transient message",
-        "status message"
+        "status message",
+        "status toast",
+        "confirmation message",
+        "auto-dismiss message"
       ],
       "tags": [
         "toast",
         "notification",
         "status",
-        "live-region"
+        "live-region",
+        "transient-message"
       ],
       "selection_excerpt": {
         "use_when": [
-          "Use when presenting a temporary, non-blocking status message.",
-          "Use when the message confirms an action (e.g., \"Saved\", \"Added to watchlist\").",
-          "Use when the message is text-only and contains no required actions, except for (at most) a dismiss button."
+          "Use when a completed action needs a brief confirmation the user does not have to act on (e.g., \"Saved\", \"Added to your watchlist\").",
+          "Use when a background event is worth reporting without interrupting what the user is doing (e.g., \"Sync complete\", \"3 new episodes available\")."
         ],
         "do_not_use_when": [
-          "Do not use when the message requires user acknowledgment, moves keyboard focus, or blocks background interaction (use dialog).",
-          "Do not use when the message is urgent or must interrupt the user immediately (use dialog.alert).",
-          "Do not use when the message includes required actions or interactive controls beyond simple dismissal (use snackbar)."
+          "Do not use when the message offers an action the user can take, such as Undo, Retry, or View (use toast.action).",
+          "Do not use when the message requires acknowledgment before the user continues, or blocks interaction with the page behind it (use dialog.basic).",
+          "Do not use when the message is critical and the user is expected to respond to it rather than merely be informed of it (use dialog.alert).",
+          "Do not use when the message reports a page-level or persistent condition rather than the outcome of an action the user just took (use banner.basic)."
         ]
       },
       "variants": [],
       "default_variant": null,
       "source": {
         "path": "components/toast.basic.md",
+        "format": "markdown",
+        "frontmatter": true
+      }
+    },
+    {
+      "id": "toast.action",
+      "title": "Toast with Action",
+      "pattern_type": "component",
+      "status": "beta",
+      "latest_version": "0.2.0",
+      "summary": "Transient status message carrying exactly one action, announced through a text-only live region while the message itself is a named landmark, and used only when that action is also performable elsewhere in the interface.",
+      "aliases": [
+        "snackbar",
+        "actionable toast",
+        "toast with action",
+        "undo toast",
+        "action toast",
+        "flag",
+        "actionable notification",
+        "snackbar with undo"
+      ],
+      "tags": [
+        "toast",
+        "snackbar",
+        "notification",
+        "live-region",
+        "landmark",
+        "transient-message"
+      ],
+      "selection_excerpt": {
+        "use_when": [
+          "Use when a completed action needs a brief confirmation that also offers exactly one related action (e.g., \"Nightfall Protocol removed from My List\" with \"Undo\", \"Added to your watchlist\" with \"View\").",
+          "Use when that action is also performable elsewhere in the interface, so the message can disappear on its own without stranding the user."
+        ],
+        "do_not_use_when": [
+          "Do not use when the message is the only place the user can perform the action (use banner.basic).",
+          "Do not use when the message carries no action beyond a dismiss control (use toast.basic).",
+          "Do not use when the message carries more than one action, requires acknowledgment before the user continues, or blocks interaction with the page behind it (use dialog.basic).",
+          "Do not use when the message is critical and the user is expected to respond to it rather than merely be informed of it (use dialog.alert).",
+          "Do not use when the message reports a page-level or ongoing condition rather than the outcome of an action the user just took (use banner.basic)."
+        ]
+      },
+      "variants": [],
+      "default_variant": null,
+      "source": {
+        "path": "components/toast.action.md",
         "format": "markdown",
         "frontmatter": true
       }
@@ -928,7 +1437,7 @@
           "Use when the label should appear on both pointer hover and keyboard focus of the trigger."
         ],
         "do_not_use_when": [
-          "Do not use when the content is interactive or rich, containing links or buttons (use dialog.nonmodal).",
+          "Do not use when the content is interactive or rich, containing links or buttons (use popover.basic).",
           "Do not use when the content is a status or confirmation message (use toast.basic).",
           "Do not use when the label would be the control's only accessible name; give the control a real accessible name via a visible label or aria-label instead (use button.basic).",
           "Do not use when the content is a menu of choices (use menu.basic)."

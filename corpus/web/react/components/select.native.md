@@ -9,7 +9,7 @@ aliases: [native select, html select, select element, dropdown, form select, sin
 summary: A native select element styled with CSS, the default single-value form control; retains native keyboard, mobile, dismissal, and assistive-technology behavior.
 ---
 
-# Native Select
+# Select (Basic)
 
 Pattern ID: `select.native`
 
@@ -92,17 +92,3 @@ const SORT_OPTIONS = [
   { value: "rating", label: "Highest rated" },
 ];
 ```
-
-## Acceptance Checks
-
-Keyboard
-- Tab moves focus to the `<select>`, which shows a visible focus indicator.
-- Type-ahead and Arrow Up/Down move through the options natively.
-- Enter, Space, and Esc behave as the native control defines (opening, selecting, and dismissing).
-
-Screen Reader
-- The control is announced with its label and current value as a native select.
-- Options are announced as the user moves through the list.
-
-Form
-- Submitting the form sends the selected value under the field name `sortOrder`.

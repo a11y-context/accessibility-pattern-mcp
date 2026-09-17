@@ -1,0 +1,166 @@
+name: Sync corpus and publish
+
+# Keeps the corpus snapshot bundled in this package in step with the corpus repo.
+#
+# Why this exists: the server does NOT fetch the corpus at runtime. It reads the
+# copy baked into the published tarball. So a corpus release reaches MCP users
+# only when this package is republished. Before this workflow existed that was a
+# manual step, and the published package drifted 20 catalog releases behind.
+#
+# Runs daily and does nothing on days when the corpus has not moved, so a burst
+# of corpus releases coalesces into a single publish.
+
+on:
+  schedule:
+    # 06:20 UTC daily. Offset off the hour so it is not queued with every other
+    # cron job on the hour.
+    - cron: "20 6 * * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Publish even if the corpus revision has not changed"
+        type: boolean
+        default: false
+
+concurrency:
+  group: sync-corpus-and-publish
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    name: check corpus revision, publish if changed
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout this repo
+        uses: actions/checkout@v4
+        with:
+          # A real token so the version-bump commit can be pushed back.
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Checkout corpus repo (public, read-only)
+        uses: actions/checkout@v4
+        with:
+          repository: a11y-context/accessibility-pattern-api
+          path: .corpus-src
+          fetch-depth: 1
+
+      - name: Compare bundled corpus revision against the corpus repo
+        id: check
+        run: |
+          set -euo pipefail
+
+          # What we currently ship, per stack.
+          bundled_web=$(jq -r '.catalog_revision // "none"' corpus/web/react/patterns.json 2>/dev/null || echo "none")
+          bundled_ios=$(jq -r '.catalog_revision // "none"' corpus/ios/swiftui/patterns.json 2>/dev/null || echo "none")
+
+          # What the corpus repo has now.
+          upstream_web=$(jq -r '.catalog_revision' .corpus-src/patterns/web/react/catalog-meta.json)
+          upstream_ios=$(jq -r '.catalog_revision' .corpus-src/patterns/ios/swiftui/catalog-meta.json)
+
+          echo "bundled  web/react=$bundled_web  ios/swiftui=$bundled_ios"
+          echo "upstream web/react=$upstream_web  ios/swiftui=$upstream_ios"
+
+          if [ "$bundled_web" = "$upstream_web" ] && [ "$bundled_ios" = "$upstream_ios" ] \
+             && [ "${{ inputs.force }}" != "true" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "Corpus is already current. Nothing to do."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "web=$upstream_web" >> "$GITHUB_OUTPUT"
+            echo "ios=$upstream_ios" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Set up Node
+        if: steps.check.outputs.changed == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.x"
+          cache: npm
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install
+        if: steps.check.outputs.changed == 'true'
+        run: npm ci
+
+      - name: Sync each stack
+        if: steps.check.outputs.changed == 'true'
+        run: |
+          set -euo pipefail
+          # sync-corpus copies one stack per invocation.
+          npm run sync-corpus -- --source "$GITHUB_WORKSPACE/.corpus-src" --stack web/react
+          npm run sync-corpus -- --source "$GITHUB_WORKSPACE/.corpus-src" --stack ios/swiftui
+
+      - name: Build
+        if: steps.check.outputs.changed == 'true'
+        run: npm run build
+
+      # THE gate. smoke-stdio asserts the SERVER behaves — handshake, tool
+      # registration, a listed id resolving, structured errors, the scope
+      # filter, no path leaks on an unpopulated stack. It deliberately asserts
+      # nothing about which patterns exist, so it stays valid as the corpus
+      # moves. A corpus change that breaks the server fails here, before publish.
+      - name: stdio handshake smoke
+        if: steps.check.outputs.changed == 'true'
+        run: node scripts/smoke-stdio.mjs
+
+      # NOT a gate. The regression fixtures are snapshots of corpus content, so
+      # they cannot survive a corpus sync by design — gating on them would fail
+      # every single run. Regenerating them and committing the result makes the
+      # fixture diff a reviewable record of exactly what changed in the
+      # published contract for this release.
+      - name: Regenerate regression fixtures
+        if: steps.check.outputs.changed == 'true'
+        run: node scripts/regression-runner.mjs --update
+
+      - name: Commit, version, tag
+        if: steps.check.outputs.changed == 'true'
+        id: version
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          rm -rf .corpus-src
+          git add corpus/ examples/fixtures/
+
+          if git diff --cached --quiet; then
+            echo "Revision numbers moved but no file content changed. Skipping publish."
+            echo "published=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          git commit -m "Sync corpus to web/react ${{ steps.check.outputs.web }}, ios/swiftui ${{ steps.check.outputs.ios }}"
+
+          # Content-only refresh: patch bump. npm version also creates the tag.
+          npm version patch -m "Release %s — corpus web/react ${{ steps.check.outputs.web }}, ios/swiftui ${{ steps.check.outputs.ios }}"
+
+          new_version=$(node -p "require('./package.json').version")
+          echo "new_version=$new_version" >> "$GITHUB_OUTPUT"
+          echo "published=true" >> "$GITHUB_OUTPUT"
+
+          git push --follow-tags origin HEAD:main
+
+      - name: Publish to npm
+        if: steps.version.outputs.published == 'true'
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Summary
+        if: always()
+        run: |
+          {
+            if [ "${{ steps.check.outputs.changed }}" != "true" ]; then
+              echo "### Corpus already current — nothing published"
+            elif [ "${{ steps.version.outputs.published }}" = "true" ]; then
+              echo "### Published \`${{ steps.version.outputs.new_version }}\`"
+              echo ""
+              echo "- web/react → \`${{ steps.check.outputs.web }}\`"
+              echo "- ios/swiftui → \`${{ steps.check.outputs.ios }}\`"
+            else
+              echo "### Revision changed but no content diff — nothing published"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"

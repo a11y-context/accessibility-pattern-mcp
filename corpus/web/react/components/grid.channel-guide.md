@@ -9,7 +9,7 @@ aliases: [epg, electronic program guide, tv guide, live guide, schedule grid]
 summary: Interactive channel guide grid with one Tab stop and arrow-key navigation across channels and time slots.
 ---
 
-# Channel Guide Grid
+# Grid (Channel Guide)
 
 Pattern ID: `grid.channel-guide`
 
@@ -309,7 +309,7 @@ export function ChannelGuideGrid({
       {/* DOCUMENTATION NOTES (intentionally not implemented in MCP code):
           - A live player preview region should announce currently playing content changes (aria-live="polite").
           - Channel tuning should be a no-op when the selectedRow channel is already playing.
-          - "Details" actions (channel column + future programs) should open a modal/dialog (use your dialog.modal pattern).
+          - "Details" actions (channel column + future programs) should open a modal/dialog (use your dialog.basic pattern).
           - On modal close: restore focus to the invoking grid button (store opener ref).
           - Consider additional keys: PageUp/PageDown (jump time columns), Ctrl+Home/End (grid edges), etc.
           - For SR verbosity: aria-label may be double-announced in some AT/browser combos; prefer aria-labelledby/aria-describedby.
@@ -430,24 +430,3 @@ const DEMO_CHANNELS = [
   },
 ];
 ```
-
-## Acceptance Checks
-- Entry/exit:
-  - Tab enters the grid to the last-focused cell.
-  - Tab/Shift+Tab exits the grid to the next/previous focusable element outside.
-- Keyboard navigation:
-  - Arrow keys move focus between cells (Left/Right/Up/Down).
-  - Home moves to the channel column for the current row.
-  - End moves to the last time column for the current row.
-  - Only the active cell is tabbable (`tabIndex=0`); all others are not (`tabIndex=-1`).
-- Semantics:
-  - Grid container uses `role="grid"` and has an accessible name.
-  - Time headers use `role="columnheader"` and are not focusable.
-  - Channel cells are row headers and are interactive.
-  - Program cells use `role="gridcell"` and are interactive.
-  - Rows expose `aria-rowindex` and cells expose `aria-colindex`, consistent with `aria-rowcount`/`aria-colcount`.
-- State:
-  - Exactly one channel row is marked as selected (currently playing), distinct from focus.
-  - Selecting/tuning updates the selected row without forcibly moving focus.
-- Pointer + keyboard continuity:
-  - Clicking a cell updates the roving "current cell" so arrow-key navigation continues from that cell.

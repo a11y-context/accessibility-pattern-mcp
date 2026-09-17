@@ -9,16 +9,16 @@ aliases: [form select, styled select, listbox select, dropdown select]
 summary: A custom-styled form select that matches native <select> behavior using a button trigger + listbox popup, and a visually hidden native <select> for form submission and browser autofill.
 ---
 
-# Select
+# Select (Custom Style)
 
 Pattern ID: `select.basic`
 
 A custom-styled form select that matches native `<select>` behavior using a button trigger + listbox popup, and a visually hidden native `<select>` for form submission and browser autofill.
 
-Native `<select>` elements are accessible out of the box. This pattern applies only when building a **custom-styled** select input.
+Native `<select>` elements are accessible out of the box. This pattern applies only when building a custom-styled select input.
 
 ## Use When
-- Use when a form input must allow selecting **one option** from a predefined set.
+- Use when a form input must allow selecting one option from a predefined set.
 - Use when the options are short labels and the selection is discrete (not freeform text).
 - Use for primary or secondary forms anywhere on a site or application.
 
@@ -30,7 +30,7 @@ Native `<select>` elements are accessible out of the box. This pattern applies o
 
 ## Must Haves
 - Provide a visible label for the field. Prefer a native `<label>` and ensure the custom UI is programmatically associated with the label (see `aria-labelledby` below).
-- Include a **visually hidden native `<select>`** (required).
+- Include a visually hidden native `<select>` (required).
   - The hidden `<select>` includes the same options and current value as the custom UI.
   - The hidden `<select>` includes form attributes as needed (e.g., `name`, `required`, `disabled`).
   - The hidden `<select>` is not focusable (so users don't tab to both controls).
@@ -300,19 +300,3 @@ export function CustomSelectBasic() {
   );
 }
 ```
-
-## Acceptance Checks
-
-Keyboard
-- Tab focuses the trigger button; Shift+Tab moves away normally.
-- Enter or Space on the trigger opens the listbox.
-- When open, Arrow Up/Down moves the active option.
-- Enter or Space selects the active option and closes the listbox.
-- Esc closes the listbox and leaves focus on the trigger.
-- Tab does not move through every option (no focus trap / no tabbing each option).
-
-Screen Reader
-- The trigger is announced with "has popup" and expanded/collapsed state (from aria-haspopup="listbox" + aria-expanded).
-- The listbox is announced as a listbox, and options are announced as options.
-- The selected option is conveyed via aria-selected="true".
-- The active option is conveyed while navigating (e.g., via aria-activedescendant).

@@ -64,13 +64,29 @@ try {
   const foundationProps = Object.keys(foundations?.inputSchema?.properties ?? {});
   check("get_foundations declares scope", foundationProps.includes("scope"), `props: ${foundationProps.join(", ")}`);
 
+  // Assert the SERVER works, never that the corpus is a particular snapshot.
+  // These checks run after every corpus sync, so any assertion pinned to a
+  // pattern count or a specific id becomes a false alarm the first time the
+  // corpus moves. (It did: this file asserted "22 patterns" and fetched
+  // dialog.modal, which was later deprecated and dropped from patterns.json.)
   const lp = await callJson(client, "list_patterns", { stack: "web/react" });
-  check("list_patterns returns 22 patterns", !lp.isError && lp.json?.count === 22, `count=${lp.json?.count}`);
-
-  const gp = await callJson(client, "get_pattern", { stack: "web/react", id: "dialog.modal" });
   check(
-    "get_pattern dialog.modal ok",
-    !gp.isError && gp.json?.pattern?.id === "dialog.modal" && (gp.json?.pattern?.sections?.must_haves?.length ?? 0) > 0,
+    "list_patterns returns a non-empty catalog",
+    !lp.isError && typeof lp.json?.count === "number" && lp.json.count > 0,
+    `count=${lp.json?.count}`
+  );
+  check(
+    "list_patterns reports a catalog_revision",
+    typeof lp.json?.catalog_revision === "string" && lp.json.catalog_revision.length > 0,
+    `catalog_revision=${lp.json?.catalog_revision}`
+  );
+
+  // Resolve a real id from the live catalog rather than hard-coding one.
+  const firstId = lp.json?.patterns?.[0]?.id;
+  const gp = await callJson(client, "get_pattern", { stack: "web/react", id: firstId });
+  check(
+    `get_pattern resolves a listed id (${firstId})`,
+    !gp.isError && gp.json?.pattern?.id === firstId && (gp.json?.pattern?.sections?.must_haves?.length ?? 0) > 0,
     `isError=${gp.isError}`
   );
 

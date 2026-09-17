@@ -3,7 +3,7 @@ id: link.basic
 title: Link
 stack: web/react
 status: beta
-latest_version: 0.2.0
+latest_version: 0.2.1
 tags: [link, anchor, navigation, external-link]
 aliases: [anchor, hyperlink, external link]
 summary: Native link for navigation using <a href>. Supports optional context in the accessible name, including "opens in new tab/window/dialog".
@@ -20,8 +20,8 @@ Native link for navigation using `<a href>`. Supports optional context in the ac
 - Use when the primary purpose of the element is destination-based navigation rather than performing an action.
 
 ## Do Not Use When
-- Do not use when activating the element performs an in-place action such as submitting, saving, deleting, toggling, or opening a dialog (use `button`).
-- Do not use when the element changes UI state without navigation (use `button`).
+- Do not use when activating the element performs an in-place action such as submitting, saving, deleting, toggling, or opening a dialog (use `button.basic`).
+- Do not use when the element changes UI state without navigation (use `button.basic`).
 
 ## Must Haves
 - Use a native `<a>` element with an `href` whenever possible.
@@ -92,14 +92,3 @@ export function LinkDemo() {
   );
 }
 ```
-
-## Acceptance Checks
-- Tab to each link: link receives focus and has a visible focus indicator.
-- Press Enter on a focused link: navigation is triggered.
-- Press Space on a focused link: does not activate the link.
-- Inline link in body text is visually identifiable as a link (e.g., underlined).
-- Screen reader announces an understandable name for each link:
-  - Simple link: reads the visible text.
-  - Contextual link: includes the additional context (e.g., "Superflo Water Bottle Read more").
-  - New tab/window link: includes "opens in a new tab/window" in the accessible name, and the external-link icon is not announced.
-  - Icon-only link: announces the `aria-label`.

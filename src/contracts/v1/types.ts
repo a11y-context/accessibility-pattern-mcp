@@ -16,12 +16,16 @@
  */
 
 /**
- * MVP supports two stacks: "web/react" and "android/compose".
- * This type ensures we don't accidentally pass "web/raect" (typo) etc.
+ * The stacks this server can serve: "web/react", "ios/swiftui", and
+ * "android/compose". This type ensures we don't accidentally pass
+ * "web/raect" (typo) etc.
  *
- * Later, you can expand this to: "ios/swiftui" | ...
+ * Being listed here does NOT mean a stack ships content. A stack is only
+ * populated if the bundled corpus/<stack>/ directory exists in this release,
+ * which depends on what the corpus sync copied in. "android/compose" is
+ * reserved and currently empty upstream.
  */
-export type StackRef = "web/react" | "android/compose";
+export type StackRef = "web/react" | "ios/swiftui" | "android/compose";
 
 /**
  * Canonical scope buckets for rules.

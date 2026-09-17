@@ -27,7 +27,7 @@ A set of show/hide sections with heading-wrapped buttons controlling associated 
   - If role="button" is used instead of a native `<button>`, add `tabindex="0"` and keyboard support for Enter and Space, ensuring Space prevents page scrolling while activating the control.
 - Each header button is contained within a heading element (`<h2>`–`<h6>`) or an element with `role="heading"` and the appropriate `aria-level`.
 - The header button uses `aria-expanded="true"` when its panel is visible and `"false"` when hidden.
-- The panel is shown/hidden in the DOM (e.g., via the `hidden` attribute), so that hidden content **cannot** be accessed by screen readers.
+- The panel is shown/hidden in the DOM (e.g., via the `hidden` attribute), so that hidden content cannot be accessed by screen readers.
 - Users move focus between accordion headers using Tab / Shift+Tab.
 - Since the header control is a button, it is activated with Enter or Space.
 - If the accordion does not permit a panel to be collapsed while expanded, the expanded header button uses `aria-disabled="true"` (rare case).
@@ -142,16 +142,3 @@ export function AccordionDemo() {
   );
 }
 ```
-
-## Acceptance Checks
-
-- Keyboard
-  - Tab/Shift+Tab moves focus through accordion header buttons in order.
-  - Enter and Space toggle the associated panel visibility.
-  - Focus remains on the header button after toggling.
-  - If a panel is collapsed while focus is inside it (implementation choice), focus is moved to a sensible place (typically the controlling header).
-- Screen Reader
-  - Each header is announced as a button within a heading. 
-  - The expanded/collapsed state is announced via `aria-expanded`.
-  - If `role="region"` is used, the panel is announced with a name that matches the controlling header.
-  - Links inside expanded panels are reachable and operate normally.
