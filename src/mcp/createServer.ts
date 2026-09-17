@@ -138,10 +138,10 @@ function registerTools(server: McpServer, opts: Pick<CreateMcpServerOptions, "pa
             "Target platform and framework. Defaults to 'web/react'. A stack is available only if this release bundles content for it; 'android/compose' is reserved and not yet populated."
           ),
         scope: z
-          .array(z.enum(["utility", "style", "component", "layout", "page"]))
+          .array(z.string())
           .optional()
           .describe(
-            "Optional. Return only rules whose `scope` includes at least one of these buckets. Omit to get all rules."
+            "Optional. Return only rules whose `scope` includes at least one of these buckets. Valid buckets differ by stack and are declared by that stack's own ruleset: web/react uses utility, style, component, layout, page; ios/swiftui uses control, layout, component. Omit to get all rules, which is the safe default."
           ),
       },
     },

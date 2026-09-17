@@ -28,11 +28,23 @@
 export type StackRef = "web/react" | "ios/swiftui" | "android/compose";
 
 /**
- * Canonical scope buckets for rules.
- * Use this when tagging a rule by where it applies
- * (utility-level guidance up to full page concerns).
+ * A scope bucket tagging where a Foundations rule binds during a code change.
+ *
+ * The vocabulary is PER STACK, not global, because the buckets describe the
+ * platform's own structure. web/react uses utility, style, component, layout,
+ * page. ios/swiftui uses control, layout, component — it has no "page", and it
+ * needs "control", which the web set has no word for. Each stack declares its
+ * own set in its global_rules.md frontmatter under apply_policy.scopes_in_order,
+ * and that declaration is authoritative.
+ *
+ * So this stays an open string rather than a union. A closed list here would
+ * mean every new stack needs a server release before its Foundations could be
+ * served at all — which is exactly what happened: ios/swiftui returned
+ * INTERNAL_ERROR on get_foundations because "control" was not in the hardcoded
+ * set. The corpus is the source of truth for its own vocabulary; this server
+ * serves what the corpus declares.
  */
-export type RuleScope = "utility" | "style" | "component" | "layout" | "page";
+export type RuleScope = string;
 
 /**
  * Optional targeting metadata describing which UI contexts

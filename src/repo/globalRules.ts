@@ -14,17 +14,24 @@ type ParseGlobalRulesResult = {
   rules: GlobalRule[];
 };
 
-// Keep allowed values centralized and deterministic.
-const ALLOWED_SCOPES: RuleScope[] = ["utility", "style", "component", "layout", "page"];
+// Scope vocabularies are per stack and declared by each corpus in its own
+// global_rules.md frontmatter (apply_policy.scopes_in_order). We validate the
+// SHAPE of a token, not its membership in a hardcoded list: a closed list here
+// would reject any stack whose vocabulary this server predates. ios/swiftui's
+// "control" bucket is exactly that case, and it made get_foundations fail
+// outright for that stack.
+const SCOPE_TOKEN = /^[a-z][a-z0-9-]*$/;
 
 function normalizeScopeToken(raw: string): string {
   return raw.trim().toLowerCase();
 }
 
 function assertIsRuleScope(value: string, ctx: string): RuleScope {
-  const v = normalizeScopeToken(value) as RuleScope;
-  if (!ALLOWED_SCOPES.includes(v)) {
-    throw new Error(`${ctx}: invalid scope '${value}'. Allowed: ${ALLOWED_SCOPES.join(", ")}`);
+  const v = normalizeScopeToken(value);
+  if (!SCOPE_TOKEN.test(v)) {
+    throw new Error(
+      `${ctx}: malformed scope '${value}'. Expected a lowercase token such as 'component' or 'control'.`
+    );
   }
   return v;
 }
