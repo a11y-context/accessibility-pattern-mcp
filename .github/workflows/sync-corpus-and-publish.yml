@@ -47,26 +47,38 @@ jobs:
           path: .corpus-src
           fetch-depth: 1
 
-      - name: Compare bundled corpus revision against the corpus repo
+      - name: Compare the PUBLISHED package against the corpus repo
         id: check
         run: |
           set -euo pipefail
 
-          # What we currently ship, per stack.
-          bundled_web=$(jq -r '.catalog_revision // "none"' corpus/web/react/patterns.json 2>/dev/null || echo "none")
-          bundled_ios=$(jq -r '.catalog_revision // "none"' corpus/ios/swiftui/patterns.json 2>/dev/null || echo "none")
+          # Read what is ON NPM, deliberately NOT this repo's working tree.
+          # What matters is what a user receives on install, and the repo can
+          # hold a synced corpus that was never published. That is exactly what
+          # happened when the first corpus refresh landed inside a hand-authored
+          # PR: repo matched corpus, so a repo-vs-corpus check saw no drift and
+          # published nothing, while npm stayed months behind.
+          tarball=$(npm view @a11y-context/mcp-server dist.tarball 2>/dev/null || echo "")
+          if [ -n "$tarball" ]; then
+            rm -rf .published && mkdir -p .published
+            curl -sL "$tarball" | tar xz -C .published
+            pub_web=$(jq -r '.catalog_revision // "none"' .published/package/corpus/web/react/patterns.json 2>/dev/null || echo "none")
+            pub_ios=$(jq -r '.catalog_revision // "none"' .published/package/corpus/ios/swiftui/patterns.json 2>/dev/null || echo "none")
+            rm -rf .published
+          else
+            pub_web="none"; pub_ios="none"
+          fi
 
-          # What the corpus repo has now.
           upstream_web=$(jq -r '.catalog_revision' .corpus-src/patterns/web/react/catalog-meta.json)
           upstream_ios=$(jq -r '.catalog_revision' .corpus-src/patterns/ios/swiftui/catalog-meta.json)
 
-          echo "bundled  web/react=$bundled_web  ios/swiftui=$bundled_ios"
-          echo "upstream web/react=$upstream_web  ios/swiftui=$upstream_ios"
+          echo "published on npm  web/react=$pub_web  ios/swiftui=$pub_ios"
+          echo "corpus repo       web/react=$upstream_web  ios/swiftui=$upstream_ios"
 
-          if [ "$bundled_web" = "$upstream_web" ] && [ "$bundled_ios" = "$upstream_ios" ] \
+          if [ "$pub_web" = "$upstream_web" ] && [ "$pub_ios" = "$upstream_ios" ] \
              && [ "${{ inputs.force }}" != "true" ]; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
-            echo "Corpus is already current. Nothing to do."
+            echo "Published package is already current. Nothing to do."
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
             echo "web=$upstream_web" >> "$GITHUB_OUTPUT"
@@ -126,13 +138,17 @@ jobs:
           rm -rf .corpus-src
           git add corpus/ examples/fixtures/
 
+          # An empty diff means the repo already held this corpus but npm did
+          # not — the check step compares against the PUBLISHED package, so
+          # reaching here at all means a publish is owed. Commit anyway so the
+          # version bump has a parent, and carry on to publish. Skipping here
+          # is what silently swallowed the first attempted release.
           if git diff --cached --quiet; then
-            echo "Revision numbers moved but no file content changed. Skipping publish."
-            echo "published=false" >> "$GITHUB_OUTPUT"
-            exit 0
+            echo "Repo corpus already matches; publishing to close the gap with npm."
+            git commit --allow-empty -m "Republish: corpus web/react ${{ steps.check.outputs.web }}, ios/swiftui ${{ steps.check.outputs.ios }}"
+          else
+            git commit -m "Sync corpus to web/react ${{ steps.check.outputs.web }}, ios/swiftui ${{ steps.check.outputs.ios }}"
           fi
-
-          git commit -m "Sync corpus to web/react ${{ steps.check.outputs.web }}, ios/swiftui ${{ steps.check.outputs.ios }}"
 
           # Content-only refresh: patch bump. npm version also creates the tag.
           npm version patch -m "Release %s — corpus web/react ${{ steps.check.outputs.web }}, ios/swiftui ${{ steps.check.outputs.ios }}"
