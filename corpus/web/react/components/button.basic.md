@@ -3,13 +3,13 @@ id: button.basic
 title: Basic Button
 stack: web/react
 status: beta
-latest_version: 0.2.1
+latest_version: 0.2.2
 tags: [button, control, action, icon-button]
 aliases: [btn, primary button, icon button, call to action, cta]
 summary: Native button that triggers an action. Supports text-only, icon+text, and icon-only labeling patterns.
 ---
 
-# Basic Button
+# Button (Basic)
 
 Pattern ID: `button.basic`
 
@@ -19,14 +19,14 @@ Native button that triggers an action. Supports text-only, icon+text, and icon-o
 - Use when the user triggers an immediate action (e.g., "Save", "Continue", "Dismiss").
 
 ## Do Not Use When
-- Do not use when the control navigates to a new URL (use `link`).
+- Do not use when the control navigates to a new URL (use `link.basic`).
 - Do not use when the control represents an on/off pressed state (use `button.toggle`).
 - Do not use when the control opens a menu (use `menu.basic`).
 
 ## Must Haves
 - Use a native `<button>` for built-in semantics and keyboard behavior.
   - A custom implementation with `role="button"` is appropriate only when a native button cannot be used.
-  - If role="button" is used instead of a native <button>, add tabindex="0" and keyboard support for Enter and Space, ensuring Space prevents page scrolling while activating the control.
+  - If `role="button"` is used instead of a native `<button>`, add `tabindex="0"` and keyboard support for Enter and Space, ensuring Space prevents page scrolling while activating the control.
 - The button has an accessible name that describes its purpose or action.
 - When the button has visible text, the visible text serves as the accessible name.
 - When additional context is needed beyond the visible text, add it via `aria-label`, `aria-labelledby`, or offscreen text. The visible text appears at the start of the accessible name.
@@ -48,7 +48,7 @@ Native button that triggers an action. Supports text-only, icon+text, and icon-o
 
 Structural reference for AI coding assistants — semantics, focus, and keyboard behavior. Styling, copy, and demo data are illustrative.
 
-```jsx
+```jsx title="ButtonBasicDemo.jsx"
 export function ButtonBasicDemo() {
   return (
     <div>
@@ -79,13 +79,3 @@ export function ButtonBasicDemo() {
   );
 }
 ```
-
-## Acceptance Checks
-- Tab to the button: a visible focus indicator is present.
-- Press Space or Enter: the button activates.
-- Text-only button: screen reader announces the visible label.
-- Icon+text button: screen reader announces the text label (icon is not redundantly announced).
-- Icon-only button: screen reader announces the `aria-label` (e.g., "Open settings").
-- Disabled button:
-  - Cannot be activated by click/keyboard.
-  - Is not focusable when `disabled` is set.

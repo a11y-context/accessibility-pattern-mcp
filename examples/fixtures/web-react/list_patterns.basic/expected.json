@@ -1,7 +1,7 @@
 {
   "cache_ttl_seconds": 86400,
   "contract_version": "1.0",
-  "count": 22,
+  "count": 33,
   "patterns": [
     {
       "aliases": [
@@ -30,6 +30,74 @@
     },
     {
       "aliases": [
+        "avatar",
+        "gravatar",
+        "initials avatar",
+        "monogram",
+        "profile image",
+        "profile photo",
+        "profile picture",
+        "user avatar"
+      ],
+      "id": "avatar.basic",
+      "selection_excerpt": {
+        "do_not_use_when": [
+          "Do not use when activating the avatar performs an action or navigates elsewhere (use button.basic or link.basic).",
+          "Do not use when a status, presence, or count indicator sits on or beside the avatar (use badge.basic).",
+          "Do not use when avatars are stacked into a group with an overflow affordance such as \"+3\" (use avatar.group)."
+        ],
+        "use_when": [
+          "Use when an image, initials, or a glyph identifies a specific person (e.g., a comment author, an account holder, a viewer in a list) or a no"
+        ]
+      },
+      "stack": "web/react",
+      "status": "beta",
+      "summary": "Image, initials, or glyph standing for a person or entity, where the accessible name identifies who is represented and stays the same whichever branch of the fallback chain renders.",
+      "tags": [
+        "alt-text",
+        "avatar",
+        "identity",
+        "image",
+        "initials",
+        "profile"
+      ]
+    },
+    {
+      "aliases": [
+        "badge",
+        "count badge",
+        "lozenge",
+        "notification badge",
+        "pill",
+        "status badge",
+        "status chip",
+        "unread count"
+      ],
+      "id": "badge.basic",
+      "selection_excerpt": {
+        "do_not_use_when": [
+          "Do not use when the user must be told about the change immediately, without navigating to the indicator (use toast.basic).",
+          "Do not use when the indicator can be selected, dismissed, or removed by the user (use tag.basic).",
+          "Do not use when the element is supplementary text revealed on hover or focus of another control (use tooltip.basic)."
+        ],
+        "use_when": [
+          "Use when a small indicator on or beside another element reports a count for that element (e.g., unread messages on a mail icon, items in a c",
+          "Use when a small indicator reports a status of the element it annotates (e.g., \"Live\" on a channel tile, an online dot on an avatar, \"New\" o"
+        ]
+      },
+      "stack": "web/react",
+      "status": "beta",
+      "summary": "Small non-interactive indicator annotating a host element with a count or a status, where the meaning is folded into an accessible name and read on arrival rather than announced on change.",
+      "tags": [
+        "badge",
+        "count",
+        "indicator",
+        "notification-count",
+        "status"
+      ]
+    },
+    {
+      "aliases": [
         "btn",
         "call to action",
         "cta",
@@ -39,7 +107,7 @@
       "id": "button.basic",
       "selection_excerpt": {
         "do_not_use_when": [
-          "Do not use when the control navigates to a new URL (use link).",
+          "Do not use when the control navigates to a new URL (use link.basic).",
           "Do not use when the control represents an on/off pressed state (use button.toggle).",
           "Do not use when the control opens a menu (use menu.basic)."
         ],
@@ -65,7 +133,7 @@
       "id": "button.toggle",
       "selection_excerpt": {
         "do_not_use_when": [
-          "Do not use when the control navigates to a new URL (use link).",
+          "Do not use when the control navigates to a new URL (use link.basic).",
           "Do not use when the control represents a persistent on/off system or application setting, such as \"Enable notifications\", \"Dark mode\" (use s",
           "Do not use when the control records a value to submit with a form rather than toggling something in the current context (use checkbox.basic)"
         ],
@@ -153,6 +221,77 @@
     },
     {
       "aliases": [
+        "agree to terms",
+        "boolean input",
+        "check box",
+        "checkbox",
+        "consent checkbox",
+        "opt-in",
+        "remember me",
+        "tickbox"
+      ],
+      "id": "checkbox.basic",
+      "selection_excerpt": {
+        "do_not_use_when": [
+          "Do not use when several checkboxes answer one shared question and their labels are not meaningful without it (use checkbox.group).",
+          "Do not use when toggling the control takes effect immediately as a persistent setting rather than a value submitted with a form (use switch.",
+          "Do not use when the control toggles a feature, tool, or formatting state in the current context rather than recording a value to submit (use"
+        ],
+        "use_when": [
+          "Use when a single control records an independent yes/no choice that is submitted with a form rather than taking effect immediately (e.g., \"I",
+          "Use when the control's label is self-sufficient, including when several such independent checkboxes appear in the same form.",
+          "Use when both the checked and unchecked values are meaningful and are read when the form is submitted."
+        ]
+      },
+      "stack": "web/react",
+      "status": "beta",
+      "summary": "A single binary checkbox for an independent on/off choice submitted with a form. Uses a native <input type=\"checkbox\"> with an associated <label>, or role=\"checkbox\" with aria-checked when a native input cannot be used.",
+      "tags": [
+        "boolean",
+        "checkbox",
+        "consent",
+        "form",
+        "form-control",
+        "selection"
+      ]
+    },
+    {
+      "aliases": [
+        "checkbox group",
+        "checkbox list",
+        "fieldset checkboxes",
+        "multi-select checkboxes",
+        "options list",
+        "preferences checkboxes",
+        "select multiple"
+      ],
+      "id": "checkbox.group",
+      "selection_excerpt": {
+        "do_not_use_when": [
+          "Do not use when a single, self-sufficient checkbox captures the choice (use checkbox.basic).",
+          "Do not use when exactly one option may be selected from the set (use radio.group).",
+          "Do not use when each toggle is a persistent setting that takes effect immediately rather than a value submitted with a form (use switch.basi"
+        ],
+        "use_when": [
+          "Use when several checkboxes together answer one question and each option's label is not meaningful without that shared question (e.g., \"Whic",
+          "Use when the user may select zero, one, or many options from the set.",
+          "Use when the set needs a single visible group label, and sometimes group-level validation (e.g., \"Select at least one\")."
+        ]
+      },
+      "stack": "web/react",
+      "status": "beta",
+      "summary": "A set of related checkboxes that together answer one question. The group is named with <fieldset> and <legend>, or role=\"group\" with aria-labelledby, and each option is an independent native <input type=\"checkbox\">.",
+      "tags": [
+        "checkbox",
+        "fieldset",
+        "form",
+        "form-control",
+        "group",
+        "multi-select"
+      ]
+    },
+    {
+      "aliases": [
         "card row",
         "content rail",
         "content row",
@@ -229,15 +368,18 @@
     },
     {
       "aliases": [
+        "blocking overlay",
         "dialog",
         "modal",
-        "pop-up"
+        "modal dialog",
+        "pop-up",
+        "show-modal"
       ],
-      "id": "dialog.modal",
+      "id": "dialog.basic",
       "selection_excerpt": {
         "do_not_use_when": [
-          "Do not use when the content is part of the normal page flow and does not block background interaction.",
-          "Do not use when presenting brief, non-blocking status messages that do not require focus movement (use toast or snackbar).",
+          "Do not use when the content is part of the normal page flow and does not block background interaction (use popover.basic).",
+          "Do not use when presenting brief, non-blocking status messages that do not require focus movement (use toast.basic).",
           "Do not use when the message is urgent and requires immediate acknowledgment (use dialog.alert)."
         ],
         "use_when": [
@@ -258,41 +400,6 @@
         "overlay",
         "pop-up",
         "show-modal"
-      ]
-    },
-    {
-      "aliases": [
-        "composer panel",
-        "editor popover",
-        "floating panel",
-        "modeless dialog",
-        "non-blocking dialog",
-        "non-modal dialog",
-        "popover dialog"
-      ],
-      "id": "dialog.nonmodal",
-      "selection_excerpt": {
-        "do_not_use_when": [
-          "Do not use when the user must complete or dismiss the overlay before returning to the page (use dialog.modal).",
-          "Do not use when a control simply shows and hides inline content (use disclosure.basic).",
-          "Do not use when the overlay is a menu of commands (use menu.basic)."
-        ],
-        "use_when": [
-          "Use when an overlay presents content or a task without blocking the page (e.g., a non-blocking editor popover, a composer, a rich panel with",
-          "Use when the user can keep interacting with the rest of the page while the overlay is open.",
-          "Use when focus should move into the dialog on open but not be trapped there."
-        ]
-      },
-      "stack": "web/react",
-      "status": "beta",
-      "summary": "A dialog that does not block the page; uses role=\"dialog\" with an accessible name, moves focus in on open and restores it on close, but does not trap focus or inert the background.",
-      "tags": [
-        "dialog",
-        "focus-restoration",
-        "modeless",
-        "non-modal",
-        "overlay",
-        "popover"
       ]
     },
     {
@@ -373,7 +480,7 @@
       "selection_excerpt": {
         "do_not_use_when": [
           "Do not use when activating the element performs an in-place action such as submitting, saving, deleting, toggling, or opening a dialog (use",
-          "Do not use when the element changes UI state without navigation (use button)."
+          "Do not use when the element changes UI state without navigation (use button.basic)."
         ],
         "use_when": [
           "Use when activating the element navigates to a different URL, route, or in-page anchor.",
@@ -567,6 +674,112 @@
     },
     {
       "aliases": [
+        "2fa code entry",
+        "one-time code input",
+        "otp input",
+        "passcode field",
+        "pin entry",
+        "security code boxes",
+        "segmented code input",
+        "verification code input"
+      ],
+      "id": "pin-input.basic",
+      "selection_excerpt": {
+        "do_not_use_when": [
+          "Do not use when the value has no fixed length, such as free-form text, an arbitrary number, or an account password (no pattern is needed; us",
+          "Do not use when the requirement is collecting and summarizing errors across several fields rather than validating one code field (use form.e"
+        ],
+        "use_when": [
+          "Use when the user enters a short numeric code of a known fixed length across segmented boxes (e.g., \"Parental control PIN\", \"Profile lock\",",
+          "Use when a verification code delivered out of band is entered (e.g., \"Enter the 6-digit code we texted you\")."
+        ]
+      },
+      "stack": "web/react",
+      "status": "beta",
+      "summary": "A fixed-length numeric code entered across segmented boxes, implemented as a single <input> whose expected length is carried in a description rather than by the box count, with the boxes and any group separator rendered as aria-hidden presentation.",
+      "tags": [
+        "authentication",
+        "form",
+        "form-control",
+        "numeric",
+        "otp",
+        "pin"
+      ]
+    },
+    {
+      "aliases": [
+        "anchored overlay",
+        "composer panel",
+        "editor popover",
+        "floating panel",
+        "modeless dialog",
+        "non-modal dialog",
+        "popover",
+        "popup panel"
+      ],
+      "id": "popover.basic",
+      "selection_excerpt": {
+        "do_not_use_when": [
+          "Do not use when the user must complete or dismiss the overlay before returning to the page (use dialog.basic).",
+          "Do not use when a control simply shows and hides inline content (use disclosure.basic).",
+          "Do not use when the overlay is a menu of commands (use menu.basic)."
+        ],
+        "use_when": [
+          "Use when an overlay anchored to a trigger presents content or a task without blocking the page (e.g., an editor popover, a composer, a rich",
+          "Use when the user can keep interacting with the rest of the page while the overlay is open.",
+          "Use when focus should move into the overlay on open but not be trapped there."
+        ]
+      },
+      "stack": "web/react",
+      "status": "beta",
+      "summary": "A non-modal overlay anchored to its trigger; uses role=\"dialog\" with an accessible name, moves focus in on open and restores it on close, but does not trap focus or inert the background.",
+      "tags": [
+        "anchored",
+        "disclosure",
+        "focus-restoration",
+        "non-modal",
+        "overlay",
+        "popover"
+      ]
+    },
+    {
+      "aliases": [
+        "download progress",
+        "indeterminate progress",
+        "loading bar",
+        "loading indicator",
+        "percent complete",
+        "progress bar",
+        "progress indicator",
+        "upload progress"
+      ],
+      "id": "progress-bar.basic",
+      "selection_excerpt": {
+        "do_not_use_when": [
+          "Do not use when the user sets or changes the value by dragging or with arrow keys (use slider.basic).",
+          "Do not use when the value is a static measurement within a known range rather than progress toward completion, such as disk usage, storage q",
+          "Do not use when the indicator is a small glyph inside a button or panel that already carries its own label, added only to show that button o"
+        ],
+        "use_when": [
+          "Use when a process the user started reports how far it has advanced toward a known end point (e.g., \"Uploading 3 of 8 files\", a download at",
+          "Use when a process the user started is running with no knowable end point, and a bar communicates that work is still underway (e.g., a form",
+          "Use when the value advances on its own and the user cannot set, drag, or type it."
+        ]
+      },
+      "stack": "web/react",
+      "status": "beta",
+      "summary": "Non-interactive indicator of a process advancing toward completion, using the native <progress> element or role=\"progressbar\" with aria-valuenow, and announcing completion through a separate live region rather than on every value change.",
+      "tags": [
+        "live-region",
+        "loading",
+        "progress",
+        "progressbar",
+        "reduced-motion",
+        "status"
+      ]
+    },
+    {
+      "aliases": [
         "dropdown select",
         "form select",
         "listbox select",
@@ -580,7 +793,7 @@
           "Do not use when multiple selections are required (use listbox.basic)."
         ],
         "use_when": [
-          "Use when a form input must allow selecting **one option** from a predefined set.",
+          "Use when a form input must allow selecting one option from a predefined set.",
           "Use when the options are short labels and the selection is discrete (not freeform text).",
           "Use for primary or secondary forms anywhere on a site or application."
         ]
@@ -634,6 +847,114 @@
     },
     {
       "aliases": [
+        "divider",
+        "hairline",
+        "horizontal rule",
+        "hr",
+        "list divider",
+        "menu divider",
+        "rule",
+        "section break",
+        "thematic break",
+        "vertical divider"
+      ],
+      "id": "separator.basic",
+      "selection_excerpt": {
+        "do_not_use_when": [
+          "Do not use when the divider can be moved by the user to resize the regions on either side of it, which is a focusable widget with a value an",
+          "Do not use when the line is a border belonging to a single element, such as a card edge, an input underline, or a rule between table cells."
+        ],
+        "use_when": [
+          "Use when a visible line marks a break between sections of content (e.g., between entries in a feed, or between groups of settings on a prefe",
+          "Use when a line separates groups of items or controls inside a container (e.g., separating destructive actions from the rest of a menu)."
+        ]
+      },
+      "stack": "web/react",
+      "status": "beta",
+      "summary": "Static line separating sections of content, rendered as an hr and hidden from assistive technology unless the line itself is the only thing marking the boundary.",
+      "tags": [
+        "divider",
+        "semantics",
+        "separator",
+        "structure",
+        "thematic-break"
+      ]
+    },
+    {
+      "aliases": [
+        "activity indicator",
+        "busy indicator",
+        "button loading state",
+        "loader",
+        "loading indicator",
+        "loading spinner",
+        "spinner",
+        "throbber"
+      ],
+      "id": "spinner.basic",
+      "selection_excerpt": {
+        "do_not_use_when": [
+          "Do not use when the process reports how far it has advanced toward a known end point (use progress-bar.basic).",
+          "Do not use when the indicator has its own label naming the work and its own place in the layout, whether or not it reports a value, such as",
+          "Do not use when grey shapes stand in for the layout of the content itself, such as bars where lines of text will appear and a block where an"
+        ],
+        "use_when": [
+          "Use when a control the user activated stays busy long enough that the user would otherwise wonder whether it worked, and the wait has no kno",
+          "Use when a region is fetching or replacing its content with no knowable end point, and the region keeps its place in the layout (e.g., a res",
+          "Use when the button or region the indicator sits in already names what is loading, so the indicator itself needs no label."
+        ]
+      },
+      "stack": "web/react",
+      "status": "beta",
+      "summary": "Indeterminate loading glyph that carries no semantics of its own, where the graphic is decorative and the control or region hosting it reports the wait through aria-busy and a separate live region.",
+      "tags": [
+        "busy",
+        "live-region",
+        "loading",
+        "reduced-motion",
+        "spinner",
+        "status"
+      ]
+    },
+    {
+      "aliases": [
+        "drag handle",
+        "gutter",
+        "pane divider",
+        "resizable panes",
+        "resize handle",
+        "sash",
+        "split pane",
+        "split panel",
+        "split view",
+        "splitter bar",
+        "window splitter"
+      ],
+      "id": "splitter.basic",
+      "selection_excerpt": {
+        "do_not_use_when": [
+          "Do not use when the divider is a static line the user cannot move, which is the common case for anything a design system calls a separator o",
+          "Do not use when the divider has only two positions, expanded and collapsed, which is a show/hide control rather than a position with a value",
+          "Do not use when the control sets a value in the content rather than a layout size, such as a volume level, a playback position, or a price f"
+        ],
+        "use_when": [
+          "Use when a moveable divider lets the user change the relative size of two adjacent panes (e.g., an episode list beside an episode detail vie",
+          "Use when a divider moves between a small set of layout positions rather than any value in a range (e.g., a three-stop divider for left pane"
+        ]
+      },
+      "stack": "web/react",
+      "status": "beta",
+      "summary": "Moveable divider between two panes that changes their relative size, using a focusable role=\"separator\" with aria-valuenow, aria-controls, and arrow-key movement.",
+      "tags": [
+        "drag-alternative",
+        "keyboard",
+        "resizable-panes",
+        "splitter",
+        "window-splitter"
+      ]
+    },
+    {
+      "aliases": [
         "preference toggle",
         "toggle switch"
       ],
@@ -664,32 +985,106 @@
     },
     {
       "aliases": [
+        "browse tabs",
+        "content switcher",
+        "pill navigation",
+        "segmented control",
+        "tab bar",
+        "tab panel",
+        "tabbed interface",
+        "view switcher"
+      ],
+      "id": "tabs.basic",
+      "selection_excerpt": {
+        "do_not_use_when": [
+          "Do not use when each tab is a link that loads a different URL or route (use navigation-menu.basic, or navigation-menu.dropdown when the navi",
+          "Do not use when the sections are steps in a sequence the user works through in order (use stepper.basic).",
+          "Do not use when sections stack vertically and expand or collapse independently, with more than one open at a time (use accordion.basic, or d"
+        ],
+        "use_when": [
+          "Use when a large amount of same-page content divides into a few clearly labeled sections at the same level, and the user views one section a",
+          "Use when one collection is presented through several filtered or status-partitioned views of the same kind of item (e.g., \"Continue Watching",
+          "Use when the sections are consulted regularly by returning users, and the sections that start hidden are supplemental rather than critical."
+        ]
+      },
+      "stack": "web/react",
+      "status": "beta",
+      "summary": "Same-page sections where one panel is visible at a time, using role=\"tablist\", role=\"tab\", and role=\"tabpanel\" with aria-selected, a roving tabindex, and arrow-key traversal.",
+      "tags": [
+        "disclosure",
+        "roving-tabindex",
+        "segmented-control",
+        "tablist",
+        "tabs",
+        "view-switching"
+      ]
+    },
+    {
+      "aliases": [
+        "action toast",
+        "actionable notification",
+        "actionable toast",
+        "flag",
+        "snackbar",
+        "snackbar with undo",
+        "toast with action",
+        "undo toast"
+      ],
+      "id": "toast.action",
+      "selection_excerpt": {
+        "do_not_use_when": [
+          "Do not use when the message is the only place the user can perform the action (use banner.basic).",
+          "Do not use when the message carries no action beyond a dismiss control (use toast.basic).",
+          "Do not use when the message carries more than one action, requires acknowledgment before the user continues, or blocks interaction with the"
+        ],
+        "use_when": [
+          "Use when a completed action needs a brief confirmation that also offers exactly one related action (e.g., \"Nightfall Protocol removed from M",
+          "Use when that action is also performable elsewhere in the interface, so the message can disappear on its own without stranding the user."
+        ]
+      },
+      "stack": "web/react",
+      "status": "beta",
+      "summary": "Transient status message carrying exactly one action, announced through a text-only live region while the message itself is a named landmark, and used only when that action is also performable elsewhere in the interface.",
+      "tags": [
+        "landmark",
+        "live-region",
+        "notification",
+        "snackbar",
+        "toast",
+        "transient-message"
+      ]
+    },
+    {
+      "aliases": [
+        "auto-dismiss message",
+        "confirmation message",
         "notification",
         "status message",
+        "status toast",
         "toast",
         "transient message"
       ],
       "id": "toast.basic",
       "selection_excerpt": {
         "do_not_use_when": [
-          "Do not use when the message requires user acknowledgment, moves keyboard focus, or blocks background interaction (use dialog).",
-          "Do not use when the message is urgent or must interrupt the user immediately (use dialog.alert).",
-          "Do not use when the message includes required actions or interactive controls beyond simple dismissal (use snackbar)."
+          "Do not use when the message offers an action the user can take, such as Undo, Retry, or View (use toast.action).",
+          "Do not use when the message requires acknowledgment before the user continues, or blocks interaction with the page behind it (use dialog.bas",
+          "Do not use when the message is critical and the user is expected to respond to it rather than merely be informed of it (use dialog.alert)."
         ],
         "use_when": [
-          "Use when presenting a temporary, non-blocking status message.",
-          "Use when the message confirms an action (e.g., \"Saved\", \"Added to watchlist\").",
-          "Use when the message is text-only and contains no required actions, except for (at most) a dismiss button."
+          "Use when a completed action needs a brief confirmation the user does not have to act on (e.g., \"Saved\", \"Added to your watchlist\").",
+          "Use when a background event is worth reporting without interrupting what the user is doing (e.g., \"Sync complete\", \"3 new episodes available"
         ]
       },
       "stack": "web/react",
       "status": "beta",
-      "summary": "Temporary, non-blocking status message announced via live region. May include optional dismiss control. Disappears automatically.",
+      "summary": "Temporary, non-blocking status message carrying no action beyond an optional dismiss control, announced through a text-only live region and disappearing on its own.",
       "tags": [
         "live-region",
         "notification",
         "status",
-        "toast"
+        "toast",
+        "transient-message"
       ]
     },
     {
@@ -706,7 +1101,7 @@
       "id": "tooltip.basic",
       "selection_excerpt": {
         "do_not_use_when": [
-          "Do not use when the content is interactive or rich, containing links or buttons (use dialog.nonmodal).",
+          "Do not use when the content is interactive or rich, containing links or buttons (use popover.basic).",
           "Do not use when the content is a status or confirmation message (use toast.basic).",
           "Do not use when the label would be the control's only accessible name; give the control a real accessible name via a visible label or aria-l"
         ],

@@ -3,13 +3,13 @@ id: button.toggle
 title: Toggle Button
 stack: web/react
 status: beta
-latest_version: 0.2.1
+latest_version: 0.2.2
 tags: [button, toggle, pressed, aria-pressed, mute-button]
 aliases: [toggle button, pressed button]
 summary: Two- or three-state button that toggles between pressed and not pressed using aria-pressed.
 ---
 
-# Toggle Button
+# Button (Toggle)
 
 Pattern ID: `button.toggle`
 
@@ -19,7 +19,7 @@ Two- or three-state button that toggles between pressed and not pressed using `a
 - Use when a control toggles a feature or action within the current context (e.g., "Mute", "Bold", "Pin", "Enable Closed Captioning").
 
 ## Do Not Use When
-- Do not use when the control navigates to a new URL (use `link`).
+- Do not use when the control navigates to a new URL (use `link.basic`).
 - Do not use when the control represents a persistent on/off system or application setting, such as "Enable notifications", "Dark mode" (use `switch.basic`).
 - Do not use when the control records a value to submit with a form rather than toggling something in the current context (use `checkbox.basic`).
 - Do not use when the control opens a menu (use `menu.basic`).
@@ -46,7 +46,7 @@ Two- or three-state button that toggles between pressed and not pressed using `a
 - You may add context to the accessible name when multiple similar toggles exist (e.g., "Mute Trailer", "Unmute Trailer") using `aria-label`, `aria-labelledby`, or offscreen text.
 
 ## Don'ts
--   Do not use `aria-pressed` for non-toolbar toggles **if** you are already changing the accessible name to the next action (avoid conflicting models like "Unmute, pressed").
+-   Do not use `aria-pressed` for non-toolbar toggles if you are already changing the accessible name to the next action (avoid conflicting models like "Unmute, pressed").
 - Do not leave `aria-pressed` incorrect, stale, or always `"true"` / always `"false"` when you choose the toolbar approach.
 - Do not ship icon-only toggles without an accessible name (`aria-label` or `aria-labelledby`).
 - Do not put state only in the icon (screen reader users must get state via the accessible name change or `aria-pressed`, depending on strategy).
@@ -100,10 +100,3 @@ export function ToggleButtonDemo() {
   );
 }
 ```
-
-## Acceptance Checks
-- Keyboard activation
-  - Tab to each control: a visible focus indicator is present.
-  - Press Space or Enter: the control activates/toggles.
-- Either the button's accessible name adjusts to reflect its state (preferred), or it remains constant and the value of `aria-pressed` reflects its state
-- Icons are not announced (decorative via `aria-hidden="true"`).
