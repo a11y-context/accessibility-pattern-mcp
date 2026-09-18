@@ -34,11 +34,6 @@ A native SwiftUI `.sheet` or `.fullScreenCover` modal that takes VoiceOver focus
 - Meets the touch target size baseline in `global_rules.md` (`global.touch-target-size`).
 - Meets the system focus indicator baseline in `global_rules.md` (`global.focus-visible`).
 
-## Customizable
-- A `.sheet` may size itself with `.presentationDetents` (e.g., `[.medium, .large]`), as long as its content stays scrollable and the title and close control remain visible at every detent.
-- The dismiss control may be a toolbar "Done" or "Close" button or an inline button; for a `.sheet`, the drag indicator may remain in addition to an explicit control, but not as the only way out.
-- Either a `.sheet` (a partial, swipe-dismissable modal) or a `.fullScreenCover` (a full-screen modal that requires an explicit close control) may be used, depending on how immersive the task is.
-
 ## Don'ts
 - Do not build a custom conditional `VStack` or overlay as a faux sheet; it does not receive VoiceOver focus on display, does not keep focus within the modal, does not restore focus on close, and lacks the built-in escape action. Use `.sheet` or `.fullScreenCover`.
 - Do not omit focus return in `onDismiss:`; without `@AccessibilityFocusState`, VoiceOver focus is dropped back to the top of the underlying screen when the modal closes.
@@ -46,6 +41,11 @@ A native SwiftUI `.sheet` or `.fullScreenCover` modal that takes VoiceOver focus
 - Do not leave the sheet title as plain text with no heading trait; VoiceOver users lose the quick way to identify the modal.
 - Do not place long content outside a `ScrollView`; it truncates at large Dynamic Type sizes instead of scrolling.
 - Do not apply `.presentationBackgroundInteraction(.enabled)`; it makes the background reachable while the sheet is up, which breaks the modality this pattern asserts (VoiceOver focus is no longer kept within the modal).
+
+## Customizable
+- A `.sheet` may size itself with `.presentationDetents` (e.g., `[.medium, .large]`), as long as its content stays scrollable and the title and close control remain visible at every detent.
+- The dismiss control may be a toolbar "Done" or "Close" button or an inline button; for a `.sheet`, the drag indicator may remain in addition to an explicit control, but not as the only way out.
+- Either a `.sheet` (a partial, swipe-dismissable modal) or a `.fullScreenCover` (a full-screen modal that requires an explicit close control) may be used, depending on how immersive the task is.
 
 ## Golden Pattern
 

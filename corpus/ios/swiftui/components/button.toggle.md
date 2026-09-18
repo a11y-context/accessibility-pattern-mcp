@@ -41,16 +41,16 @@ SwiftUI `Button` with two states (e.g. pressed/active) conveyed via either an ac
   - No other accessible signal exposes the state: there is no visible value or state text, no `.accessibilityValue` already set, and no surrounding labeled context that implies off.
   - When any one of these is false, omit `.accessibilityValue`; the off state is already discoverable.
 
-## Customizable
-- For most toggles (non-toolbar), the "next action" wording may be expressed via visible text (preferred when space allows) and/or `.accessibilityLabel` (required for icon-only).
-- Add context to the accessible name when multiple similar toggles exist on the same screen (e.g., "Mute Trailer", "Unmute Trailer").
-- An `.accessibilityHint` may be added when the result of the action is not obvious from the visible label, per the same guidance as `button.basic`.
-
 ## Don'ts
 - Do not add the `.isSelected` trait to a toggle button that is also changing its accessible name to the next action. Pick one state model, not both; combining them produces conflicting, confusing announcements like "Unmute, Selected".
 - Do not leave `.isSelected` stale, always applied, or never applied when using the toolbar trait strategy; it must track the live state.
 - Do not ship icon-only toggle buttons without an accessible name.
 - Do not put state only in the icon's visual appearance. Screen reader users must get the state via the accessible-name change or the `.isSelected` trait, depending on which strategy is in use.
+
+## Customizable
+- For most toggles (non-toolbar), the "next action" wording may be expressed via visible text (preferred when space allows) and/or `.accessibilityLabel` (required for icon-only).
+- Add context to the accessible name when multiple similar toggles exist on the same screen (e.g., "Mute Trailer", "Unmute Trailer").
+- An `.accessibilityHint` may be added when the result of the action is not obvious from the visible label, per the same guidance as `button.basic`.
 
 ## Golden Pattern
 

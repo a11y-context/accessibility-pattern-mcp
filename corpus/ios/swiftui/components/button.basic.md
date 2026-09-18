@@ -35,13 +35,13 @@ SwiftUI `Button` that triggers an action. Supports text-only, icon+text, and ico
 - Meets the touch target size baseline in `global_rules.md` (`global.touch-target-size`).
 - Meets the system focus indicator baseline in `global_rules.md` (`global.focus-visible`).
 
-## Customizable
-- An `.accessibilityHint` may be added when the result of the action is not obvious from the visible label (e.g., a song title that plays on tap might use "Plays the song."). Most buttons with a clear action label ("Save", "Delete") do not need one. Hints describe the result in third-person singular, never the gesture or control type ("button", "tap").
-
 ## Don'ts
 - Do not include the word "Button" in `.accessibilityLabel`. VoiceOver already appends the "Button" trait, so this makes it announce "Button, Button".
 - Do not create icon-only buttons without an `.accessibilityLabel` (no unlabeled icons).
 - Do not use an `.accessibilityLabel` that conflicts with (or is wildly different from) the visible label text. Accessible names should at least begin with the visible label.
+
+## Customizable
+- An `.accessibilityHint` may be added when the result of the action is not obvious from the visible label (e.g., a song title that plays on tap might use "Plays the song."). Most buttons with a clear action label ("Save", "Delete") do not need one. Hints describe the result in third-person singular, never the gesture or control type ("button", "tap").
 
 ## Golden Pattern
 

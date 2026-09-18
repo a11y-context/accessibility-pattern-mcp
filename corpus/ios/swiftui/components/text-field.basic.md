@@ -37,12 +37,6 @@ A single-line SwiftUI `TextField` whose visible label is exposed to VoiceOver th
 - Meets the touch target size baseline in `global_rules.md` (`global.touch-target-size`).
 - Meets the system focus indicator baseline in `global_rules.md` (`global.focus-visible`).
 
-## Customizable
-- The accessible name may come from the `TextField` title, an `.accessibilityLabel` on a titleless field, or a `LabeledContent` wrapper. These are equivalent as long as exactly one name results.
-- For masked secret entry, `SecureField` may replace `TextField`; it carries the same labeling and content-type requirements and additionally hides the typed value (pair it with `.textContentType(.password)`, `.newPassword`, or `.oneTimeCode`).
-- The visual field style (`.textFieldStyle(.roundedBorder)`, a custom `.border`, or a bespoke background) is at the engineer's discretion as long as the boundary keeps 3:1 non-text contrast.
-- Editing-behavior modifiers such as `.textInputAutocapitalization` and `.autocorrectionDisabled()` may be tuned to the field's data (e.g., disabling both on an email field) without affecting the accessible name.
-
 ## Don'ts
 - Do not rely on a placeholder as the only label; the placeholder disappears once the user types, can fall below text contrast, and leaves the field with no accessible name for VoiceOver.
 - Do not wrap the field in a `LabeledContent` styled to stack its label vertically above the field (a custom vertical `LabeledContentStyle`); VoiceOver then cannot double-tap to activate the field and Voice Control cannot target it by name, due to a known Apple bug.
@@ -52,6 +46,12 @@ A single-line SwiftUI `TextField` whose visible label is exposed to VoiceOver th
 - Do not signal a validation error with color alone.
 - Do not add error text to the `.accessibilityValue`; it replaces the typed text, so VoiceOver stops speaking the field's actual value.
 - Do not expose error text only through an `.accessibilityHint`; users can turn hints off in VoiceOver settings and would never hear the error.
+
+## Customizable
+- The accessible name may come from the `TextField` title, an `.accessibilityLabel` on a titleless field, or a `LabeledContent` wrapper. These are equivalent as long as exactly one name results.
+- For masked secret entry, `SecureField` may replace `TextField`; it carries the same labeling and content-type requirements and additionally hides the typed value (pair it with `.textContentType(.password)`, `.newPassword`, or `.oneTimeCode`).
+- The visual field style (`.textFieldStyle(.roundedBorder)`, a custom `.border`, or a bespoke background) is at the engineer's discretion as long as the boundary keeps 3:1 non-text contrast.
+- Editing-behavior modifiers such as `.textInputAutocapitalization` and `.autocorrectionDisabled()` may be tuned to the field's data (e.g., disabling both on an email field) without affecting the accessible name.
 
 ## Golden Pattern
 

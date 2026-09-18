@@ -33,13 +33,13 @@ Native SwiftUI `Toggle` representing a persistent on/off setting. The label and 
 - Meets the touch target size baseline in `global_rules.md` (`global.touch-target-size`).
 - Meets the system focus indicator baseline in `global_rules.md` (`global.focus-visible`).
 
-## Customizable
-- A custom `.toggleStyle` may restyle appearance (color, shape, knob position) as long as it continues to wrap a real `Toggle` underneath, preserving native semantics rather than rebuilding the control from scratch.
-
 ## Don'ts
 - Do not build a switch out of a custom `HStack` of `Text` plus a shape-based knob without grouping it. Without an explicit `Toggle` (or `.accessibilityElement(children: .combine)`), the label and the control become two disconnected accessibility elements instead of one combined name-and-state announcement.
 - Do not leave `.accessibilityValue` mismatched with the visible value text when the switch shows custom state wording instead of On/Off.
 - Do not rely on color alone (e.g., green vs. gray) to convey on/off state; the off state must remain distinguishable through sufficient contrast.
+
+## Customizable
+- A custom `.toggleStyle` may restyle appearance (color, shape, knob position) as long as it continues to wrap a real `Toggle` underneath, preserving native semantics rather than rebuilding the control from scratch.
 
 ## Golden Pattern
 

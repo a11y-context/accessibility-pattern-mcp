@@ -34,15 +34,15 @@ A SwiftUI `Picker` with the segmented style, showing two to five mutually exclus
 - Meets the touch target size baseline in `global_rules.md` (`global.touch-target-size`).
 - Meets the system focus indicator baseline in `global_rules.md` (`global.focus-visible`).
 
-## Customizable
-- The current selection may also be shown in a separate visible `Text` (e.g., "Fruit: Apple") in addition to the highlighted segment, as long as it stays in sync with the binding.
-- The option set may be static (a `ForEach` over a `CaseIterable` enum) or dynamic, as long as each option has stable, distinct text and a `.tag` matching the selection type.
-
 ## Don'ts
 - Do not rely on the `Picker` label text alone to name a segmented picker; without `.accessibilityElement(children: .contain)`, the `.accessibilityLabel` is not spoken and VoiceOver users hear only the segment text, never the group label.
 - Do not carry over the menu-style rule of omitting `.accessibilityLabel`; the segmented style is the documented opposite and needs the label set.
 - Do not leave the group unlabeled (`Picker("", ...)` with no `.accessibilityLabel`); the segments then have no group name.
 - Do not convey the selected segment by color alone; keep the native segmented style so the selection is shown by fill and shape, not only tint.
+
+## Customizable
+- The current selection may also be shown in a separate visible `Text` (e.g., "Fruit: Apple") in addition to the highlighted segment, as long as it stays in sync with the binding.
+- The option set may be static (a `ForEach` over a `CaseIterable` enum) or dynamic, as long as each option has stable, distinct text and a `.tag` matching the selection type.
 
 ## Golden Pattern
 

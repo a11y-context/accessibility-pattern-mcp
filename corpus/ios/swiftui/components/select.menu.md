@@ -35,15 +35,15 @@ A SwiftUI `Picker` with the menu style: a pop-up button that shows the current v
 - Meets the touch target size baseline in `global_rules.md` (`global.touch-target-size`).
 - Meets the system focus indicator baseline in `global_rules.md` (`global.focus-visible`).
 
-## Customizable
-- The current selection may also be shown in a separate visible `Text` (e.g., "Fruit: Apple") in addition to the on-button value, as long as it stays in sync with the binding.
-- The option set may be static (a `ForEach` over a `CaseIterable` enum) or dynamic, as long as each option has stable, distinct text and a `.tag` matching the selection type.
-
 ## Don'ts
 - Do not add `.accessibilityLabel` to a menu-style or default-style `Picker`; it stops VoiceOver from announcing the selected value when closed. Name it through the `Picker` label text instead.
 - Do not leave the `Picker` label empty (`Picker("", ...)`) on a menu style; VoiceOver then has no accessible name.
 - Do not use a value `Picker` for a list of commands or actions; that is a `menu.basic`.
 - Do not omit focus return after selection; without `@AccessibilityFocusState`, VoiceOver focus can jump away from the picker when the value changes.
+
+## Customizable
+- The current selection may also be shown in a separate visible `Text` (e.g., "Fruit: Apple") in addition to the on-button value, as long as it stays in sync with the binding.
+- The option set may be static (a `ForEach` over a `CaseIterable` enum) or dynamic, as long as each option has stable, distinct text and a `.tag` matching the selection type.
 
 ## Golden Pattern
 

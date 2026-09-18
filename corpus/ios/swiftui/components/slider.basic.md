@@ -33,17 +33,17 @@ A native SwiftUI `Slider` that VoiceOver adjusts by swiping up or down, paired w
 - Meets the touch target size baseline in `global_rules.md` (`global.touch-target-size`).
 - Meets the system focus indicator baseline in `global_rules.md` (`global.focus-visible`).
 
-## Customizable
-- The single-tap alternative is the engineer's choice: increment and decrement buttons, a paired `Stepper`, a `TextField` for direct numeric entry, or a combination, as long as at least one single-tap path adjusts the value.
-- The slider may show `minimumValueLabel` and `maximumValueLabel` for visible bounds; these are supplementary and do not replace the accessible name or value.
-- `step:` may be set for discrete stops or omitted for continuous adjustment; both remain adjustable to VoiceOver.
-
 ## Don'ts
 - Do not add a `.adjustable` trait; SwiftUI has no such trait (it exists only in UIKit). For a custom slider, confer adjustability with `.accessibilityAdjustableAction`, not a trait.
 - Do not ship a slider adjustable only by dragging; provide a single-tap alternative (WCAG 2.5.1).
 - Do not leave the slider without a visible label and an accessible name.
 - Do not leave `.accessibilityValue` at the default percentage when the value carries meaningful units the user needs (e.g., currency, temperature).
 - Do not create icon-only increment or decrement buttons without accessible names.
+
+## Customizable
+- The single-tap alternative is the engineer's choice: increment and decrement buttons, a paired `Stepper`, a `TextField` for direct numeric entry, or a combination, as long as at least one single-tap path adjusts the value.
+- The slider may show `minimumValueLabel` and `maximumValueLabel` for visible bounds; these are supplementary and do not replace the accessible name or value.
+- `step:` may be set for discrete stops or omitted for continuous adjustment; both remain adjustable to VoiceOver.
 
 ## Golden Pattern
 

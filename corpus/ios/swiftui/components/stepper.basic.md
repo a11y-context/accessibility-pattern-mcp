@@ -32,16 +32,16 @@ A native SwiftUI `Stepper` whose visible label text becomes its accessible name 
 - Meets the touch target size baseline in `global_rules.md` (`global.touch-target-size`).
 - Meets the system focus indicator baseline in `global_rules.md` (`global.focus-visible`).
 
-## Customizable
-- The value may be carried in the label text (`Text("Tickets: \(tickets)")`) or announced through `.accessibilityValue` while the label stays static; either keeps the value discoverable.
-- A `TextField` for direct entry is recommended for wide ranges and optional for small ones.
-- The increment size (`step:`) and bounds (`in:`) are the engineer's choice for the value being adjusted.
-
 ## Don'ts
 - Do not add a `.adjustable` trait; SwiftUI has none (it is a UIKit trait). A native `Stepper` provides the behavior, and a custom control uses `.accessibilityAdjustableAction`.
 - Do not ship a `Stepper` with an empty label and no `.accessibilityLabel`; VoiceOver then announces no name.
 - Do not force a large value to be reached only by repeated taps; pair a `TextField` for direct entry on wide ranges.
 - Do not leave the value undiscoverable to VoiceOver; put it in the label text or `.accessibilityValue`.
+
+## Customizable
+- The value may be carried in the label text (`Text("Tickets: \(tickets)")`) or announced through `.accessibilityValue` while the label stays static; either keeps the value discoverable.
+- A `TextField` for direct entry is recommended for wide ranges and optional for small ones.
+- The increment size (`step:`) and bounds (`in:`) are the engineer's choice for the value being adjusted.
 
 ## Golden Pattern
 

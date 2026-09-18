@@ -34,17 +34,17 @@ A native SwiftUI `DatePicker` for choosing a date or time, whose accessible name
 - Meets the touch target size baseline in `global_rules.md` (`global.touch-target-size`).
 - Meets the system focus indicator baseline in `global_rules.md` (`global.focus-visible`).
 
-## Customizable
-- The style may be default, `.compact`, `.graphical`, or `.wheel`; the naming approach above follows from the chosen style.
-- The value may be bounded with the `in:` parameter (an open or closed range), as long as the picker still exposes a valid, announced value.
-- On the `.wheel` and `.graphical` styles, the layout label may be hidden with `.labelsHidden()` as long as another visible text (e.g., a preceding `Text`) still names the picker for sighted users and the `DatePicker("Label")` string remains set so the accessible name is preserved.
-
 ## Don'ts
 - Do not add an `.accessibilityLabel` to a `.graphical` or `.wheel` `DatePicker`; combined with the required visible `DatePicker("Label")` string, VoiceOver speaks both and the name is announced twice.
 - Do not leave the label empty (`DatePicker("", ...)`) on a `.graphical` or `.wheel` picker; VoiceOver then has no accessible name to speak.
 - Do not rely on the visible `DatePicker("Label")` text alone on the default or `.compact` style; it is not exposed as the accessible name, so add a matching `.accessibilityLabel`.
 - Do not attempt to restore VoiceOver focus to the picker with `@AccessibilityFocusState`; it does not work with `DatePicker` (an Apple platform defect), so do not build a focus-return requirement on it.
 - Do not use a `DatePicker` for values that are not dates or times; that is a `select.wheel`.
+
+## Customizable
+- The style may be default, `.compact`, `.graphical`, or `.wheel`; the naming approach above follows from the chosen style.
+- The value may be bounded with the `in:` parameter (an open or closed range), as long as the picker still exposes a valid, announced value.
+- On the `.wheel` and `.graphical` styles, the layout label may be hidden with `.labelsHidden()` as long as another visible text (e.g., a preceding `Text`) still names the picker for sighted users and the `DatePicker("Label")` string remains set so the accessible name is preserved.
 
 ## Golden Pattern
 

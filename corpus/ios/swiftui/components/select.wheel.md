@@ -34,16 +34,16 @@ A SwiftUI `Picker` with the wheel style: an always-visible spinning drum of valu
 - Meets the touch target size baseline in `global_rules.md` (`global.touch-target-size`).
 - Meets the system focus indicator baseline in `global_rules.md` (`global.focus-visible`).
 
-## Customizable
-- The current selection may also be shown in a separate visible `Text` (e.g., "Fruit: Apple") above the wheel, as long as it stays in sync with the binding.
-- The option set may be static (a `ForEach` over a `CaseIterable` enum) or dynamic, as long as each option has stable, distinct text and a `.tag` matching the selection type.
-- The visible label may be supplied by the `Picker` label text, a preceding `Text`, or both; the `.accessibilityLabel` must match whichever visible text names the wheel.
-
 ## Don'ts
 - Do not omit `.accessibilityElement(children: .contain)` on a wheel-style `Picker`; without it the accessibility label is not spoken and the wheel is announced with no name.
 - Do not rely on the `Picker` label text alone to name a wheel-style picker; unlike the menu and default styles, wheel-style ignores it for VoiceOver naming.
 - Do not leave the wheel unlabeled (`Picker("", ...)` with no `.accessibilityLabel`); VoiceOver then has no accessible name for it.
 - Do not use a wheel-style value `Picker` for a list of commands or actions; that is a `menu.basic`.
+
+## Customizable
+- The current selection may also be shown in a separate visible `Text` (e.g., "Fruit: Apple") above the wheel, as long as it stays in sync with the binding.
+- The option set may be static (a `ForEach` over a `CaseIterable` enum) or dynamic, as long as each option has stable, distinct text and a `.tag` matching the selection type.
+- The visible label may be supplied by the `Picker` label text, a preceding `Text`, or both; the `.accessibilityLabel` must match whichever visible text names the wheel.
 
 ## Golden Pattern
 

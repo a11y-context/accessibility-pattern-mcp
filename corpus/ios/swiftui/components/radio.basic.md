@@ -37,17 +37,17 @@ A mutually exclusive choice group built from custom `Button` elements, since Swi
 - Meets the touch target size baseline in `global_rules.md` (`global.touch-target-size`).
 - Meets the system focus indicator baseline in `global_rules.md` (`global.focus-visible`).
 
-## Customizable
-- Each option may render as a classic labeled circle or as a selectable card in a grid, as long as it wraps a real `Button`, keeps the selected state distinguishable without color, and carries the selected trait and value.
-- The value wording may match the domain when it reads more clearly, as long as it conveys the radio role and reflects the checked or unchecked state and stays in sync with the visible selection.
-- A native `Picker` may be used instead when a collapsed single-select control is acceptable; the custom radio group is for when an always-expanded set of radio options is specifically required.
-
 ## Don'ts
 - Do not leave the options as plain `Button` elements with no trait or value changes; VoiceOver then announces each as a generic button with no indication that they form a single-select group or which one is selected.
 - Do not build the option from a bare tap gesture on a shape; it becomes unreachable and inoperable for VoiceOver, Switch Control, and Full Keyboard Access.
 - Do not omit the group label; without `.accessibilityElement(children: .contain)` plus `.accessibilityLabel`, VoiceOver users do not hear what the group is for.
 - Do not convey the selected state by color alone; change the radio glyph.
 - Do not fix the glyph to a static point size that fails to scale with Dynamic Type.
+
+## Customizable
+- Each option may render as a classic labeled circle or as a selectable card in a grid, as long as it wraps a real `Button`, keeps the selected state distinguishable without color, and carries the selected trait and value.
+- The value wording may match the domain when it reads more clearly, as long as it conveys the radio role and reflects the checked or unchecked state and stays in sync with the visible selection.
+- A native `Picker` may be used instead when a collapsed single-select control is acceptable; the custom radio group is for when an always-expanded set of radio options is specifically required.
 
 ## Golden Pattern
 

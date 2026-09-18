@@ -33,15 +33,15 @@ Inline links inherit two Apple platform defects that a standalone `Link` control
 - Provide a fully operable alternative to the same destination for keyboard and Voice Control users. `AttributedString` and Markdown inline links are not focusable under Full Keyboard Access and not targetable by Voice Control Show Names or Show Numbers, an Apple platform defect. Supply a standalone `link.basic` to the same URL, or keep destinations that must be operable out of inline links.
 - Keep each inline link's text meaningful on its own, because VoiceOver users reach inline links through the Links rotor, which lists them by name out of surrounding context.
 
-## Customizable
-- The underline is required for distinction, but its exact style (single, thick) is at the engineer's discretion as long as the link stays distinguishable without color.
-- The operable alternative may be a visible standalone `link.basic`, or a repetition of the destination elsewhere on the screen as a `Link`, as long as keyboard and Voice Control users can reach the same URL.
-
 ## Don'ts
 - Do not rely on an inline link as the only way to reach a destination that keyboard or Voice Control users must operate; the platform defect leaves it unreachable for them without a standalone alternative.
 - Do not distinguish an inline link by color alone; set an underline via `AttributedString`.
 - Do not use Markdown inline links when conformance depends on distinguishing the link without color, since Markdown links cannot be underlined or given a different text style than the surrounding run.
 - Do not use generic inline link text ("here", "click here", "read more") that is not meaningful in the Links rotor.
+
+## Customizable
+- The underline is required for distinction, but its exact style (single, thick) is at the engineer's discretion as long as the link stays distinguishable without color.
+- The operable alternative may be a visible standalone `link.basic`, or a repetition of the destination elsewhere on the screen as a `Link`, as long as keyboard and Voice Control users can reach the same URL.
 
 ## Golden Pattern
 

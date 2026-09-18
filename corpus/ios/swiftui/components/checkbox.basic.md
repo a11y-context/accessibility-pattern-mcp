@@ -34,16 +34,16 @@ A checkbox built from a SwiftUI `Toggle` with a custom square toggle style, usin
 - Meets the touch target size baseline in `global_rules.md` (`global.touch-target-size`).
 - Meets the system focus indicator baseline in `global_rules.md` (`global.focus-visible`).
 
-## Customizable
-- The custom `.toggleStyle` may draw any recognizable checkbox appearance (square outline, filled check, rounded box) as long as it wraps a real `Toggle`, keeps the state distinguishable without color, and preserves the label and value.
-- The value wording may match the domain when it reads more clearly than Checked or Unchecked (e.g., "Selected"/"Not selected"), as long as it reflects the binary state and stays in sync with the visible box.
-
 ## Don'ts
 - Do not build a checkbox from a `Button` that swaps a checkmark image; VoiceOver then announces "Button" with no Checked or Unchecked value, and the state is invisible to screen reader users.
 - Do not leave the checkbox announcing the default On or Off; set `.accessibilityValue` to Checked or Unchecked.
 - Do not omit the group label on a set of related checkboxes; without `.accessibilityElement(children: .contain)` plus `.accessibilityLabel`, VoiceOver users do not hear what the group is for.
 - Do not convey the checked state by color alone; change the box glyph.
 - Do not fix the glyph to a static point size that fails to scale with Dynamic Type.
+
+## Customizable
+- The custom `.toggleStyle` may draw any recognizable checkbox appearance (square outline, filled check, rounded box) as long as it wraps a real `Toggle`, keeps the state distinguishable without color, and preserves the label and value.
+- The value wording may match the domain when it reads more clearly than Checked or Unchecked (e.g., "Selected"/"Not selected"), as long as it reflects the binary state and stays in sync with the visible box.
 
 ## Golden Pattern
 

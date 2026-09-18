@@ -35,16 +35,16 @@ A native SwiftUI `.confirmationDialog` action sheet that takes VoiceOver focus o
 - Meets the touch target size baseline in `global_rules.md` (`global.touch-target-size`).
 - Meets the system focus indicator baseline in `global_rules.md` (`global.focus-visible`).
 
-## Customizable
-- The dialog may present a single confirming action plus cancel, or several actions plus cancel, as long as every action returns focus to the trigger.
-- The confirming action may carry the `.destructive` role, or the default role when the action is not destructive.
-- The title may be hidden with `titleVisibility: .hidden` when the triggering context already makes the choice clear, as long as the message or action labels still convey what is being confirmed.
-
 ## Don'ts
 - Do not build a custom view as a faux action sheet (a conditional `VStack` overlay); it does not receive VoiceOver focus on display, does not block the background, and does not restore focus on close. Use the native `.confirmationDialog()`, or `dialog.modal` for a richer custom modal.
 - Do not omit focus return; without `@AccessibilityFocusState` set in each action, VoiceOver focus is lost when the dialog closes, which is a gap in the native control.
 - Do not rely on color alone to signal a destructive action; use the `.destructive` role and a clear label, not only red text.
 - Do not put forms, many controls, or lengthy content in a confirmation dialog; use `dialog.modal` for that.
+
+## Customizable
+- The dialog may present a single confirming action plus cancel, or several actions plus cancel, as long as every action returns focus to the trigger.
+- The confirming action may carry the `.destructive` role, or the default role when the action is not destructive.
+- The title may be hidden with `titleVisibility: .hidden` when the triggering context already makes the choice clear, as long as the message or action labels still convey what is being confirmed.
 
 ## Golden Pattern
 

@@ -32,17 +32,17 @@ A SwiftUI `Menu` that presents a pull-down list of command buttons, takes VoiceO
 - Meets the touch target size baseline in `global_rules.md` (`global.touch-target-size`).
 - Meets the system focus indicator baseline in `global_rules.md` (`global.focus-visible`).
 
-## Customizable
-- The trigger may be a text label (`Menu("Actions")`), an icon plus text, or an icon-only control; an icon-only trigger may name itself with `.accessibilityLabel`.
-- Commands may be grouped with `Section`, as long as the grouping is not the only way the structure is conveyed to VoiceOver: native menu section headers are missing the heading trait (see Don'ts).
-- A menu may host a `Picker` for a checked sub-choice; its selection checkmark stays visible at all Dynamic Type sizes, unlike a manually drawn trailing checkmark `Image`.
-
 ## Don'ts
 - Do not build a faux menu from a custom `VStack` or conditional overlay of buttons; it does not receive VoiceOver focus when shown and is not announced as a pop-up button. Use the native `Menu`.
 - Do not leave an icon-only trigger without an `.accessibilityLabel`; VoiceOver then has no accessible name for it.
 - Do not attempt to restore VoiceOver focus to the trigger after the menu closes with `@AccessibilityFocusState`. Unlike a `.sheet()` or `.popover()`, a native `Menu` does not return focus to its trigger and cannot be forced to, an Apple platform defect. Do not paper over it with a workaround that lands focus somewhere misleading.
 - Do not convey a command's selected state with a trailing checkmark `Image` only; it disappears at the largest Dynamic Type sizes. Use a `Picker` inside the `Menu` for a checked choice, whose checkmark stays visible.
 - Do not rely on `Section` header text to be exposed as a heading; native menu section headers lack the heading trait and have insufficient contrast (an Apple platform defect).
+
+## Customizable
+- The trigger may be a text label (`Menu("Actions")`), an icon plus text, or an icon-only control; an icon-only trigger may name itself with `.accessibilityLabel`.
+- Commands may be grouped with `Section`, as long as the grouping is not the only way the structure is conveyed to VoiceOver: native menu section headers are missing the heading trait (see Don'ts).
+- A menu may host a `Picker` for a checked sub-choice; its selection checkmark stays visible at all Dynamic Type sizes, unlike a manually drawn trailing checkmark `Image`.
 
 ## Golden Pattern
 

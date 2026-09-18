@@ -33,17 +33,17 @@ SwiftUI `Link(destination:)` that opens a URL or web view, exposing the link tra
 - Meets the touch target size baseline in `global_rules.md` (`global.touch-target-size`).
 - Meets the system focus indicator baseline in `global_rules.md` (`global.focus-visible`).
 
-## Customizable
-- The accessible name is normally the visible link text. When the visible text cannot be made specific on its own, add an `.accessibilityLabel` naming the destination, with the visible text appearing at the start of the label.
-- The destination may open in the default browser or in an in-app web view (e.g., `SFSafariViewController`); the link trait and the labeling and contrast requirements are the same either way.
-- An `.accessibilityHint` may be added when the destination is not obvious from the visible text (e.g., "Opens in your browser."). Most links with specific text do not need one.
-
 ## Don'ts
 - Do not implement a link as a `Button` that calls `UIApplication.shared.open(url)`; VoiceOver then announces "Button" instead of "Link", hiding that the control leaves the app.
 - Do not use generic link text ("Click here", "here", "Read more", "Learn more") that does not describe the destination; the accessible name must be specific.
 - Do not rely on color alone to mark a link placed among static text; add an underline or other non-color distinction.
 - Do not leave the default button trait in place when it produces a "Button, Link" announcement.
 - Do not include the word "Link" in the accessible name; VoiceOver already appends the link trait.
+
+## Customizable
+- The accessible name is normally the visible link text. When the visible text cannot be made specific on its own, add an `.accessibilityLabel` naming the destination, with the visible text appearing at the start of the label.
+- The destination may open in the default browser or in an in-app web view (e.g., `SFSafariViewController`); the link trait and the labeling and contrast requirements are the same either way.
+- An `.accessibilityHint` may be added when the destination is not obvious from the visible text (e.g., "Opens in your browser."). Most links with specific text do not need one.
 
 ## Golden Pattern
 

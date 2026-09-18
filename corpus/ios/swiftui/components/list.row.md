@@ -33,17 +33,17 @@ A `NavigationLink` rendered as a row in a `List`, where the whole row is one tar
 - Meets the touch target size baseline in `global_rules.md` (`global.touch-target-size`).
 - Meets the system focus indicator baseline in `global_rules.md` (`global.focus-visible`).
 
-## Customizable
-- The row content may be a plain text label or a richer layout (title plus subtitle, a leading icon, a trailing value), as long as it resolves to one accessible element with a coherent name. If a custom row layout fragments into separate elements, combine them with `.accessibilityElement(children: .combine)`.
-- The destination may be supplied by the value-based `NavigationLink(value:)` paired with `.navigationDestination(for:)`, or by the closure-based `NavigationLink { } label: { }`; both carry the same button semantics and system focus management.
-- The trailing accessory may be the default disclosure chevron or a custom trailing element, provided it stays decorative and the whole row remains the single target.
-
 ## Don'ts
 - Do not build a drill-in row from `Text` or an `HStack` with an `.onTapGesture`; it exposes no button trait, is unreachable and inoperable for Switch Control and Full Keyboard Access, and leaves focus unmanaged so VoiceOver can land behind the pushed screen.
 - Do not call a navigable row a "link" in its accessible name; VoiceOver announces it as a button, and "link" misleads users about where it goes.
 - Do not add a separate accessible element or label to the disclosure chevron.
 - Do not split a rich row into multiple sibling accessibility elements (title, subtitle, and chevron each focusable); combine them into one.
 - Do not force VoiceOver focus to the back button or the destination title on push; let the system manage it, per `global.navigation-focus`.
+
+## Customizable
+- The row content may be a plain text label or a richer layout (title plus subtitle, a leading icon, a trailing value), as long as it resolves to one accessible element with a coherent name. If a custom row layout fragments into separate elements, combine them with `.accessibilityElement(children: .combine)`.
+- The destination may be supplied by the value-based `NavigationLink(value:)` paired with `.navigationDestination(for:)`, or by the closure-based `NavigationLink { } label: { }`; both carry the same button semantics and system focus management.
+- The trailing accessory may be the default disclosure chevron or a custom trailing element, provided it stays decorative and the whole row remains the single target.
 
 ## Golden Pattern
 
