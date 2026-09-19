@@ -30,7 +30,7 @@ A native SwiftUI `Stepper` whose visible label text becomes its accessible name 
 - For a wide range, pair the stepper with a `TextField` for direct entry so users are not forced to tap many times; give the paired field the same accessible name.
 - Give repeated steppers on one screen unique accessible names.
 - Meets the touch target size baseline in `global_rules.md` (`global.touch-target-size`).
-- Meets the system focus indicator baseline in `global_rules.md` (`global.focus-visible`).
+- Meets the system focus indicator baseline in `global_rules.md` (`global.focus-states`).
 
 ## Don'ts
 - Do not add a `.adjustable` trait; SwiftUI has none (it is a UIKit trait). A native `Stepper` provides the behavior, and a custom control uses `.accessibilityAdjustableAction`.

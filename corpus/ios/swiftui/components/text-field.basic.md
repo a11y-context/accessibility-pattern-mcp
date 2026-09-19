@@ -35,7 +35,7 @@ A single-line SwiftUI `TextField` whose visible label is exposed to VoiceOver th
   - Move VoiceOver focus to the errored field with `@AccessibilityFocusState` and `.accessibilityFocused` when validation fails on submit.
 - Support Dynamic Type: use a built-in text style so the field's label and text scale, and allow the label to wrap rather than truncate at accessibility sizes.
 - Meets the touch target size baseline in `global_rules.md` (`global.touch-target-size`).
-- Meets the system focus indicator baseline in `global_rules.md` (`global.focus-visible`).
+- Meets the system focus indicator baseline in `global_rules.md` (`global.focus-states`).
 
 ## Don'ts
 - Do not rely on a placeholder as the only label; the placeholder disappears once the user types, can fall below text contrast, and leaves the field with no accessible name for VoiceOver.

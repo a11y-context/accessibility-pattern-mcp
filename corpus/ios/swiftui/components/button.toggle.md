@@ -31,7 +31,7 @@ SwiftUI `Button` with two states (e.g. pressed/active) conveyed via either an ac
 - Keep icons inside a toggle button decorative to VoiceOver; label the button as a whole, not the icon.
 - If the action is unavailable, disable the button with `.disabled(true)`.
 - Meets the touch target size baseline in `global_rules.md` (`global.touch-target-size`).
-- Meets the system focus indicator baseline in `global_rules.md` (`global.focus-visible`).
+- Meets the system focus indicator baseline in `global_rules.md` (`global.focus-states`).
 
 ### Formatting toolbar exception
 - If the control is a formatting toggle in a toolbar (e.g., Bold/Italic/Underline), keep the accessible name stable (e.g., "Bold") and convey the pressed state with `.accessibilityAddTraits(isActive ? .isSelected : [])` instead of renaming it. VoiceOver appends "Selected" after the accessible name while the trait is present.

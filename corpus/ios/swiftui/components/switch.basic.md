@@ -31,7 +31,7 @@ Native SwiftUI `Toggle` representing a persistent on/off setting. The label and 
 - When the on/off state is represented by visible value text other than "On"/"Off" (e.g., "Allowed"/"Blocked", "Dark"/"Light"), set `.accessibilityValue` to match so VoiceOver announces the correct state instead of defaulting to generic On/Off wording.
 - The off-state fill maintains at least 3:1 contrast against the adjacent background, so the off state is distinguishable by more than color (a plain light gray is a common offender).
 - Meets the touch target size baseline in `global_rules.md` (`global.touch-target-size`).
-- Meets the system focus indicator baseline in `global_rules.md` (`global.focus-visible`).
+- Meets the system focus indicator baseline in `global_rules.md` (`global.focus-states`).
 
 ## Don'ts
 - Do not build a switch out of a custom `HStack` of `Text` plus a shape-based knob without grouping it. Without an explicit `Toggle` (or `.accessibilityElement(children: .combine)`), the label and the control become two disconnected accessibility elements instead of one combined name-and-state announcement.

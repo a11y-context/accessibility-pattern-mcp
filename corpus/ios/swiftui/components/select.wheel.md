@@ -27,12 +27,12 @@ A SwiftUI `Picker` with the wheel style: an always-visible spinning drum of valu
 
 ## Must Haves
 - Use a native `Picker` with `.pickerStyle(.wheel)` so it exposes the wheel's role, the current value, and the option list to VoiceOver and Switch Control.
-- Add an `.accessibilityLabel` whose text matches the picker's visible label (e.g., `.accessibilityLabel("Fruit")`), and set `.accessibilityElement(children: .contain)` on the picker. Without both, VoiceOver speaks neither the `Picker` label text nor the `.accessibilityLabel`, leaving the wheel unnamed (WCAG 4.1.2).
+- Add an `.accessibilityLabel` whose text matches the picker's visible label (e.g., `.accessibilityLabel("Fruit")`), and set `.accessibilityElement(children: .contain)` on the picker. Without both, VoiceOver speaks neither the `Picker` label text nor the `.accessibilityLabel`, leaving the wheel unnamed.
 - This is the opposite of the menu and default styles: a menu-style `Picker` is named by its `Picker` label text and must not carry an `.accessibilityLabel` (see `select.menu`), whereas the wheel style requires the `.accessibilityLabel` plus `.contain` to be named at all.
-- Provide a visible label for the wheel so sighted users know what is being chosen, and keep the `.accessibilityLabel` matching it (WCAG 2.5.3, 3.3.2).
+- Provide a visible label for the wheel so sighted users know what is being chosen, and keep the `.accessibilityLabel` matching it.
 - Each option has clear, distinct text so the values are distinguishable as they scroll under VoiceOver.
 - Meets the touch target size baseline in `global_rules.md` (`global.touch-target-size`).
-- Meets the system focus indicator baseline in `global_rules.md` (`global.focus-visible`).
+- Meets the system focus indicator baseline in `global_rules.md` (`global.focus-states`).
 
 ## Don'ts
 - Do not omit `.accessibilityElement(children: .contain)` on a wheel-style `Picker`; without it the accessibility label is not spoken and the wheel is announced with no name.

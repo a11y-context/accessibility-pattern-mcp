@@ -33,7 +33,7 @@ SwiftUI `Button` that triggers an action. Supports text-only, icon+text, and ico
 - Keep icons inside a button decorative to VoiceOver. `Image(systemName:)` inside a `Button` is decorative by default; label the button as a whole rather than adding a separate `.accessibilityLabel` to the icon.
 - If the action is unavailable, disable the button with `.disabled(true)` so it becomes non-interactive and is announced as dimmed.
 - Meets the touch target size baseline in `global_rules.md` (`global.touch-target-size`).
-- Meets the system focus indicator baseline in `global_rules.md` (`global.focus-visible`).
+- Meets the system focus indicator baseline in `global_rules.md` (`global.focus-states`).
 
 ## Don'ts
 - Do not include the word "Button" in `.accessibilityLabel`. VoiceOver already appends the "Button" trait, so this makes it announce "Button, Button".

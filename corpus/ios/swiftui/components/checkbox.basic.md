@@ -28,11 +28,11 @@ A checkbox built from a SwiftUI `Toggle` with a custom square toggle style, usin
 - Build the checkbox from a native `Toggle` with a custom `.toggleStyle` that draws the square box and checkmark (e.g., `square` when unchecked, `checkmark.square` when checked), rather than a `Button` or a bare tap gesture, so it keeps the underlying control semantics and stays operable by Switch Control and Full Keyboard Access.
 - The checkbox has an accessible name matching its visible label; pass the label into the `Toggle` (e.g., `Toggle("Accept Terms", isOn: $accepted)` or the label closure).
 - Override the announced value with `.accessibilityValue(isChecked ? "Checked" : "Unchecked")` so VoiceOver speaks Checked or Unchecked instead of the default On or Off.
-- For a checkbox group, label the container: apply `.accessibilityElement(children: .contain)` and an `.accessibilityLabel` matching the visible group heading, so VoiceOver announces the group name when focus first enters it (WCAG 1.3.1).
+- For a checkbox group, label the container: apply `.accessibilityElement(children: .contain)` and an `.accessibilityLabel` matching the visible group heading, so VoiceOver announces the group name when focus first enters it.
 - The checked and unchecked states are distinguishable by more than color: the box glyph itself changes (empty square versus checkmark), not only a color fill (per `global.semantic-color`).
 - Let the box glyph scale with the label under Dynamic Type; size it with the surrounding font (e.g., `.imageScale`) rather than a fixed point frame that would clip at large sizes.
 - Meets the touch target size baseline in `global_rules.md` (`global.touch-target-size`).
-- Meets the system focus indicator baseline in `global_rules.md` (`global.focus-visible`).
+- Meets the system focus indicator baseline in `global_rules.md` (`global.focus-states`).
 
 ## Don'ts
 - Do not build a checkbox from a `Button` that swaps a checkmark image; VoiceOver then announces "Button" with no Checked or Unchecked value, and the state is invisible to screen reader users.

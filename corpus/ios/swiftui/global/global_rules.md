@@ -21,6 +21,23 @@ The cross-cutting accessibility rules that apply across most SwiftUI work, indep
 
 Verification (audits, contrast measurement, on-device and human/LLM review) is a QA concern and lives in the QA layer, not here.
 
+## Rule: Native First
+
+```yaml
+id: global.native-first
+scope: [control, component]
+```
+
+### Must Haves
+- An interactive control exposes three things to assistive technology: its role, its current value or state, and its actions. Reach for the control that already does all three rather than assembling one that does none.
+- SwiftUI's own control is the reference implementation of that contract. `Button`, `Toggle`, `Slider`, `Stepper`, `Picker`, `TextField`, and `DatePicker` carry their traits, values, and actions without being told. A view that wraps one of them satisfies the contract too.
+- A control assembled from `Text`, `Image`, `Shape`, and `.onTapGesture` satisfies none of it, and has to declare all three by hand. When that is the only option, follow `global.custom-control-representation`.
+- When a component's own pattern states a fallback and its conditions, follow that pattern rather than this rule. The conditions under which the native control cannot be used differ by component.
+
+### Don'ts
+- Do not treat a visual match as a semantic match. An `HStack` of a checkmark `Image` and a `Text` renders like a checkbox and exposes none of a checkbox's trait or state.
+- Do not replace a native control to gain a visual treatment a style modifier could have given it. A custom `ToggleStyle` keeps the underlying `Toggle`; a hand-drawn switch does not.
+
 ## Rule: Touch Target Size
 
 ```yaml
@@ -29,7 +46,7 @@ scope: [component]
 ```
 
 ### Must Haves
-- Every tappable control has a hit area of at least 24x24 points (WCAG 2.2 AA, 2.5.8 Target Size (Minimum)).
+- Every tappable control has a hit area of at least 24x24 points.
   - Inline targets within a run of text are exempt from this minimum.
   - For icon-only controls where the visible glyph is smaller than 24x24, use `.frame(minWidth: 24, minHeight: 24)` on the tappable element to extend the hit area without resizing the glyph.
 - Prefer a 44x44 point hit area where layout allows, matching Apple's Human Interface Guidelines. Treat 44x44 as the target and 24x24 as the non-negotiable floor.
@@ -37,10 +54,10 @@ scope: [component]
 ### Don'ts
 - Do not rely on the visible glyph size alone to satisfy the minimum; extend the frame, not the icon.
 
-## Rule: System Focus Indicator
+## Rule: Focus States
 
 ```yaml
-id: global.focus-visible
+id: global.focus-states
 scope: [component]
 ```
 
@@ -75,7 +92,7 @@ scope: [layout, component]
 ```
 
 ### Must Haves
-- Use a built-in text style (`.body`, `.headline`, `.caption`) or a `Text` with no fixed point size, so text scales with the user's setting (WCAG 2.1 AA 1.4.4 Resize Text).
+- Use a built-in text style (`.body`, `.headline`, `.caption`) or a `Text` with no fixed point size, so text scales with the user's setting.
 - Size any glyph-tracking dimension (icon size, control height, glyph padding) with `@ScaledMetric(relativeTo:)` rather than a fixed point value.
 - Let text wrap and containers grow, and place long content in a `ScrollView`. For a `TextField` that can hold long input, use `axis: .vertical`.
 
@@ -92,7 +109,7 @@ scope: [component]
 ```
 
 ### Must Haves
-- Any control drawn from primitives (shapes, `Canvas`, `Path`, raw gestures) rather than a native control exposes a hidden native equivalent through `.accessibilityRepresentation { }`, supplying an accessible name, the current value (for a slider, stepper, or toggle), the correct role and trait, and the control's actions (WCAG 2.2 A 4.1.2 Name, Role, Value).
+- Any control drawn from primitives (shapes, `Canvas`, `Path`, raw gestures) rather than a native control exposes a hidden native equivalent through `.accessibilityRepresentation { }`, supplying an accessible name, the current value (for a slider, stepper, or toggle), the correct role and trait, and the control's actions.
 - Bind the representation and the visible control to the same state so the announced value stays in sync as the user interacts.
 - For a control adjusted by dragging, add `.accessibilityAddTraits(.allowsDirectInteraction)` so a VoiceOver user can move it directly.
 
@@ -108,7 +125,7 @@ scope: [screen]
 ```
 
 ### Must Haves
-- Set a `navigationTitle` on every pushed screen so its screen change is announced by name (WCAG 2.2 A 2.4.3 Focus Order).
+- Set a `navigationTitle` on every pushed screen so its screen change is announced by name.
 - Let the system manage VoiceOver focus on a `NavigationStack` push; do not force focus to the back button or an arbitrary element.
 - On pop, restore focus to the row that triggered the navigation by binding it with `@AccessibilityFocusState` and setting that focus when the pushed screen is dismissed, where the system does not restore it.
 
@@ -124,7 +141,7 @@ scope: [component]
 ```
 
 ### Must Haves
-- When a dynamic change updates on-screen content without moving focus (a status message, an updated cart count, an inline validation result, a passive confirmation), speak it to VoiceOver by posting an `AccessibilityNotification.Announcement("...")` so the user hears the change without losing their place (WCAG 2.1 AA, 4.1.3 Status Messages).
+- When a dynamic change updates on-screen content without moving focus (a status message, an updated cart count, an inline validation result, a passive confirmation), speak it to VoiceOver by posting an `AccessibilityNotification.Announcement("...")` so the user hears the change without losing their place.
 - Post the announcement after the content actually appears, with a short delay (`DispatchQueue.main.asyncAfter(deadline: .now() + 0.1)`), so VoiceOver does not drop the message while it commits the view update.
 - Announce, rather than move focus, when the change is passive: informational content the user did not have to act on. Reserve moving focus (see `global.focus-management`) for content the user must interact with immediately, such as a newly presented overlay or a blocking error. This is the passive status-message path a component like `dialog.alert` redirects to when acknowledgement is not required.
 - In a UIKit-backed view, post the equivalent `UIAccessibility.post(notification: .announcement, argument:)`.
@@ -142,7 +159,7 @@ scope: [layout, component]
 ```
 
 ### Must Haves
-- When content appears that the user must act on immediately (a modal overlay, a newly revealed section, an error that blocks progress), move VoiceOver focus to it with a property bound by `@AccessibilityFocusState`, so the user is placed on the new content rather than left where they were (WCAG 2.2 A 2.4.3 Focus Order).
+- When content appears that the user must act on immediately (a modal overlay, a newly revealed section, an error that blocks progress), move VoiceOver focus to it with a property bound by `@AccessibilityFocusState`, so the user is placed on the new content rather than left where they were.
 - When an overlay closes, restore VoiceOver focus to the control that opened it. Bind that trigger with `@AccessibilityFocusState` and set it true as the overlay dismisses. Native `.alert()`, `.confirmationDialog()`, `.sheet()`, `.fullScreenCover()`, and `.popover()` do not restore focus automatically, an Apple platform defect, so restore it explicitly: from each action's closure for alerts and confirmation dialogs, or from the `onDismiss:` handler for sheets and full-screen covers.
 - For a `TextField`, `@AccessibilityFocusState` does not return focus automatically after the keyboard is dismissed; restore it from the keyboard toolbar's Done button.
 - This rule covers overlays, dynamic content reveals, and text-field focus restoration. For an in-app push/pop `NavigationStack` transition, follow `global.navigation-focus` instead.

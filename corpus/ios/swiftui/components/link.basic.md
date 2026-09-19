@@ -31,7 +31,7 @@ SwiftUI `Link(destination:)` that opens a URL or web view, exposing the link tra
 - Link text meets 4.5:1 contrast against its background in both light and dark appearances. Use an accent or tint color vetted for both appearances (per `global.semantic-color`); the default link tint can fall below 4.5:1.
 - When the link sits inline with, or directly adjacent to, static text, distinguish it by more than color, e.g., `.underline()` on the label.
 - Meets the touch target size baseline in `global_rules.md` (`global.touch-target-size`).
-- Meets the system focus indicator baseline in `global_rules.md` (`global.focus-visible`).
+- Meets the system focus indicator baseline in `global_rules.md` (`global.focus-states`).
 
 ## Don'ts
 - Do not implement a link as a `Button` that calls `UIApplication.shared.open(url)`; VoiceOver then announces "Button" instead of "Link", hiding that the control leaves the app.

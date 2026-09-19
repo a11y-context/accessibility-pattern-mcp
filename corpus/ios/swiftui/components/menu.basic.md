@@ -25,12 +25,12 @@ A SwiftUI `Menu` that presents a pull-down list of command buttons, takes VoiceO
 - Do not use when there is a single, always-visible action (use `button.basic`).
 
 ## Must Haves
-- Use a native `Menu` so the trigger exposes the pop-up button role and the menu receives VoiceOver focus when it opens (WCAG 2.4.3).
+- Use a native `Menu` so the trigger exposes the pop-up button role and the menu receives VoiceOver focus when it opens.
 - Give the trigger an accessible name. A text trigger (`Menu("Actions")`) is named by its label text; an icon-only trigger (an ellipsis or "more" glyph) needs an `.accessibilityLabel` (e.g., "Map options").
 - Populate the menu with `Button` actions, each with a clear, specific label that reads well out of context.
 - Give a destructive command `role: .destructive` so the system presents it as destructive, rather than signaling it with red text alone (see `global.semantic-color`).
 - Meets the touch target size baseline in `global_rules.md` (`global.touch-target-size`).
-- Meets the system focus indicator baseline in `global_rules.md` (`global.focus-visible`).
+- Meets the system focus indicator baseline in `global_rules.md` (`global.focus-states`).
 
 ## Don'ts
 - Do not build a faux menu from a custom `VStack` or conditional overlay of buttons; it does not receive VoiceOver focus when shown and is not announced as a pop-up button. Use the native `Menu`.

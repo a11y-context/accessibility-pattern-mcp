@@ -27,11 +27,11 @@ A native SwiftUI `.alert` modal that takes VoiceOver focus on presentation, with
 ## Must Haves
 - Use the native `.alert(_:isPresented:actions:message:)` modifier so the alert is a real modal that takes VoiceOver focus on presentation and blocks interaction with the rest of the screen until it is dismissed.
 - Provide the primary question or statement as the alert title, and any supporting detail in the `message:` closure.
-- Return VoiceOver focus to the trigger on dismissal: bind the trigger with `@AccessibilityFocusState` and set it true inside every alert action's closure, because native alerts do not restore focus automatically (WCAG 2.4.3).
+- Return VoiceOver focus to the trigger on dismissal: bind the trigger with `@AccessibilityFocusState` and set it true inside every alert action's closure, because native alerts do not restore focus automatically.
 - Give each action a specific label and the correct role: `.cancel` for the dismissive action and `.destructive` for a destructive one, so VoiceOver and the system present them correctly.
 - Keep the action set short and the labels self-explanatory out of context (e.g., "Delete", "Cancel"), not "OK"/"Yes"/"No" where the outcome is ambiguous.
 - Meets the touch target size baseline in `global_rules.md` (`global.touch-target-size`).
-- Meets the system focus indicator baseline in `global_rules.md` (`global.focus-visible`).
+- Meets the system focus indicator baseline in `global_rules.md` (`global.focus-states`).
 
 ## Don'ts
 - Do not build a custom view as a faux alert (a conditional `VStack` overlay); it does not receive VoiceOver focus on display, does not block the background, and does not restore focus on close. Use the native `.alert()`, or `dialog.modal` for a richer custom modal.

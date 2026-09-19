@@ -28,11 +28,11 @@ A SwiftUI `Picker` with the segmented style, showing two to five mutually exclus
 
 ## Must Haves
 - Use a native `Picker` with `.pickerStyle(.segmented)` so the segments expose their selectable roles and current selection to VoiceOver and Switch Control.
-- Give the picker an `.accessibilityLabel` that matches its visible label text, AND apply `.accessibilityElement(children: .contain)` to the picker. With the segmented style, the `Picker` label text alone is not spoken; the label is announced only when both modifiers are present (WCAG 1.3.1). This is the opposite of the menu style in `select.menu`, where an `.accessibilityLabel` is forbidden and the `Picker` label text serves as the name.
-- Provide a visible label for the group (the `Picker` label text or a preceding `Text`) so a sighted user knows what the segments choose, and match the `.accessibilityLabel` to it (WCAG 3.3.2).
+- Give the picker an `.accessibilityLabel` that matches its visible label text, AND apply `.accessibilityElement(children: .contain)` to the picker. With the segmented style, the `Picker` label text alone is not spoken; the label is announced only when both modifiers are present. This is the opposite of the menu style in `select.menu`, where an `.accessibilityLabel` is forbidden and the `Picker` label text serves as the name.
+- Provide a visible label for the group (the `Picker` label text or a preceding `Text`) so a sighted user knows what the segments choose, and match the `.accessibilityLabel` to it.
 - Each segment has clear, distinct text so the options are distinguishable and each `.tag` matches the selection type.
 - Meets the touch target size baseline in `global_rules.md` (`global.touch-target-size`).
-- Meets the system focus indicator baseline in `global_rules.md` (`global.focus-visible`).
+- Meets the system focus indicator baseline in `global_rules.md` (`global.focus-states`).
 
 ## Don'ts
 - Do not rely on the `Picker` label text alone to name a segmented picker; without `.accessibilityElement(children: .contain)`, the `.accessibilityLabel` is not spoken and VoiceOver users hear only the segment text, never the group label.

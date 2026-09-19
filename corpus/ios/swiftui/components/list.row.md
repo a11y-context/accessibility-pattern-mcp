@@ -31,7 +31,7 @@ A `NavigationLink` rendered as a row in a `List`, where the whole row is one tar
 - Keep the disclosure chevron decorative; do not give it a separate accessible element or label. Inside a `List`, `NavigationLink` supplies and hides it automatically.
 - Follow the push and pop focus contract in `global_rules.md` (`global.navigation-focus`): the destination sets a `navigationTitle`, the system manages VoiceOver focus on push, and focus returns to this row on pop.
 - Meets the touch target size baseline in `global_rules.md` (`global.touch-target-size`).
-- Meets the system focus indicator baseline in `global_rules.md` (`global.focus-visible`).
+- Meets the system focus indicator baseline in `global_rules.md` (`global.focus-states`).
 
 ## Don'ts
 - Do not build a drill-in row from `Text` or an `HStack` with an `.onTapGesture`; it exposes no button trait, is unreachable and inoperable for Switch Control and Full Keyboard Access, and leaves focus unmanaged so VoiceOver can land behind the pushed screen.

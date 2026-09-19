@@ -30,10 +30,10 @@ A SwiftUI `Picker` with the menu style: a pop-up button that shows the current v
 - Name the picker with the `Picker` label text (`Picker("Fruit", selection: $fruit)`), which becomes the accessible name for the menu and default styles.
 - Do not add an `.accessibilityLabel` to a menu-style or default-style `Picker`; it suppresses VoiceOver speaking the selected value when the picker is closed. The wheel and segmented styles are the opposite case, covered by `select.wheel` and `select.segmented`.
 - Each option has clear, distinct text so the choices are distinguishable in the pop-up list.
-- After the value changes, return VoiceOver focus to the picker with `@AccessibilityFocusState` and `.accessibilityFocused`, because `Picker` has no dismissal callback to restore focus (WCAG 2.4.3).
-- Provide a visible indication of what is being chosen when the on-button value alone does not convey it (WCAG 3.3.2); the `Picker` label text can serve this, or a separate `Text` can precede the picker.
+- After the value changes, return VoiceOver focus to the picker with `@AccessibilityFocusState` and `.accessibilityFocused`, because `Picker` has no dismissal callback to restore focus.
+- Provide a visible indication of what is being chosen when the on-button value alone does not convey it; the `Picker` label text can serve this, or a separate `Text` can precede the picker.
 - Meets the touch target size baseline in `global_rules.md` (`global.touch-target-size`).
-- Meets the system focus indicator baseline in `global_rules.md` (`global.focus-visible`).
+- Meets the system focus indicator baseline in `global_rules.md` (`global.focus-states`).
 
 ## Don'ts
 - Do not add `.accessibilityLabel` to a menu-style or default-style `Picker`; it stops VoiceOver from announcing the selected value when closed. Name it through the `Picker` label text instead.
