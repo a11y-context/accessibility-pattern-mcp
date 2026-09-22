@@ -40,7 +40,7 @@ function registerTools(server: McpServer, opts: Pick<CreateMcpServerOptions, "pa
           .enum(["web/react", "ios/swiftui", "android/compose"])
           .default("web/react")
           .describe(
-            "Target platform and framework. Defaults to 'web/react'. A stack is available only if this release bundles content for it; 'android/compose' is reserved and not yet populated."
+            "Target platform and framework. Defaults to 'web/react'. A stack is available only if this release bundles content for it; an unbundled stack returns CORPUS_UNAVAILABLE rather than empty results."
           ),
         tags: z.array(z.string()).optional(),
         query: z.string().optional(),
@@ -89,7 +89,7 @@ function registerTools(server: McpServer, opts: Pick<CreateMcpServerOptions, "pa
           .enum(["web/react", "ios/swiftui", "android/compose"])
           .default("web/react")
           .describe(
-            "Target platform and framework. Defaults to 'web/react'. A stack is available only if this release bundles content for it; 'android/compose' is reserved and not yet populated."
+            "Target platform and framework. Defaults to 'web/react'. A stack is available only if this release bundles content for it; an unbundled stack returns CORPUS_UNAVAILABLE rather than empty results."
           ),
         id: z.string(),
       },
@@ -135,7 +135,7 @@ function registerTools(server: McpServer, opts: Pick<CreateMcpServerOptions, "pa
           .enum(["web/react", "ios/swiftui", "android/compose"])
           .default("web/react")
           .describe(
-            "Target platform and framework. Defaults to 'web/react'. A stack is available only if this release bundles content for it; 'android/compose' is reserved and not yet populated."
+            "Target platform and framework. Defaults to 'web/react'. A stack is available only if this release bundles content for it; an unbundled stack returns CORPUS_UNAVAILABLE rather than empty results."
           ),
         scope: z
           .array(z.string())
