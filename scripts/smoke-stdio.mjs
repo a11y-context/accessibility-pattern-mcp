@@ -104,14 +104,28 @@ try {
     `scope_filter=${JSON.stringify(scoped.json?.rules?.scope_filter)}`
   );
 
-  const unavailable = await callJson(client, "list_patterns", { stack: "android/compose" });
-  check(
-    "unpopulated stack -> CORPUS_UNAVAILABLE, no absolute path leak",
-    unavailable.isError &&
-      unavailable.json?.error_code === "CORPUS_UNAVAILABLE" &&
-      !/\/Users\/|\/home\/|[A-Za-z]:\\\\/.test(unavailable.text),
-    unavailable.text
-  );
+  // Find a stack the server accepts but this release does not bundle, rather
+  // than naming one. Hardcoding android/compose here made this check a booby
+  // trap: the day that stack shipped content, the publish gate failed on a
+  // stale fixture and looked like a server bug.
+  let unpopulated = null;
+  for (const candidate of ["web/react", "ios/swiftui", "android/compose"]) {
+    const probe = await callJson(client, "list_patterns", { stack: candidate });
+    if (probe.isError && probe.json?.error_code === "CORPUS_UNAVAILABLE") {
+      unpopulated = { stack: candidate, ...probe };
+      break;
+    }
+  }
+
+  if (unpopulated) {
+    check(
+      `unpopulated stack (${unpopulated.stack}) -> CORPUS_UNAVAILABLE, no absolute path leak`,
+      !/\/Users\/|\/home\/|[A-Za-z]:\\\\/.test(unpopulated.text),
+      unpopulated.text
+    );
+  } else {
+    console.log("  — skipped: every stack in this release is populated, so there is no unavailable case to probe");
+  }
 } catch (err) {
   console.error("smoke-stdio: unexpected error", err);
   failures.push("unexpected-error");

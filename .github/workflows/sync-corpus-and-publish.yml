@@ -9,6 +9,10 @@ name: Sync corpus and publish
 #
 # Runs daily and does nothing on days when the corpus has not moved, so a burst
 # of corpus releases coalesces into a single publish.
+#
+# Every stack the server can serve must appear in the drift check below. A
+# stack that is synced but not compared will never trigger a publish on its
+# own, which is how android/compose would have sat unpublished indefinitely.
 
 on:
   schedule:
@@ -68,18 +72,23 @@ jobs:
             curl -sL "$tarball" | tar xz -C .published
             pub_web=$(jq -r '.catalog_revision // "none"' .published/package/corpus/web/react/patterns.json 2>/dev/null || echo "none")
             pub_ios=$(jq -r '.catalog_revision // "none"' .published/package/corpus/ios/swiftui/patterns.json 2>/dev/null || echo "none")
+            pub_android=$(jq -r '.catalog_revision // "none"' .published/package/corpus/android/compose/patterns.json 2>/dev/null || echo "none")
             rm -rf .published
           else
-            pub_web="none"; pub_ios="none"
+            pub_web="none"; pub_ios="none"; pub_android="none"
           fi
 
           upstream_web=$(jq -r '.catalog_revision' .corpus-src/patterns/web/react/catalog-meta.json)
           upstream_ios=$(jq -r '.catalog_revision' .corpus-src/patterns/ios/swiftui/catalog-meta.json)
+          # A stack the corpus has not created yet reads as "none" on both
+          # sides, so it compares equal and holds nothing up.
+          upstream_android=$(jq -r '.catalog_revision // "none"' .corpus-src/patterns/android/compose/catalog-meta.json 2>/dev/null || echo "none")
 
-          echo "published on npm  web/react=$pub_web  ios/swiftui=$pub_ios"
-          echo "corpus repo       web/react=$upstream_web  ios/swiftui=$upstream_ios"
+          echo "published on npm  web/react=$pub_web  ios/swiftui=$pub_ios  android/compose=$pub_android"
+          echo "corpus repo       web/react=$upstream_web  ios/swiftui=$upstream_ios  android/compose=$upstream_android"
 
           if [ "$pub_web" = "$upstream_web" ] && [ "$pub_ios" = "$upstream_ios" ] \
+             && [ "$pub_android" = "$upstream_android" ] \
              && [ "${{ inputs.force }}" != "true" ]; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "Published package is already current. Nothing to do."
@@ -87,6 +96,7 @@ jobs:
             echo "changed=true" >> "$GITHUB_OUTPUT"
             echo "web=$upstream_web" >> "$GITHUB_OUTPUT"
             echo "ios=$upstream_ios" >> "$GITHUB_OUTPUT"
+            echo "android=$upstream_android" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Set up Node
@@ -116,6 +126,11 @@ jobs:
           # sync-corpus copies one stack per invocation.
           npm run sync-corpus -- --source "$GITHUB_WORKSPACE/.corpus-src" --stack web/react
           npm run sync-corpus -- --source "$GITHUB_WORKSPACE/.corpus-src" --stack ios/swiftui
+          # Skipped while the corpus has no android/compose directory, so this
+          # step is safe to keep in place ahead of that stack existing.
+          if [ -d "$GITHUB_WORKSPACE/.corpus-src/patterns/android/compose" ]; then
+            npm run sync-corpus -- --source "$GITHUB_WORKSPACE/.corpus-src" --stack android/compose
+          fi
 
       - name: Build
         if: steps.check.outputs.changed == 'true'
@@ -157,13 +172,13 @@ jobs:
           # is what silently swallowed the first attempted release.
           if git diff --cached --quiet; then
             echo "Repo corpus already matches; publishing to close the gap with npm."
-            git commit --allow-empty -m "Republish: corpus web/react ${{ steps.check.outputs.web }}, ios/swiftui ${{ steps.check.outputs.ios }}"
+            git commit --allow-empty -m "Republish: corpus web/react ${{ steps.check.outputs.web }}, ios/swiftui ${{ steps.check.outputs.ios }}, android/compose ${{ steps.check.outputs.android }}"
           else
-            git commit -m "Sync corpus to web/react ${{ steps.check.outputs.web }}, ios/swiftui ${{ steps.check.outputs.ios }}"
+            git commit -m "Sync corpus to web/react ${{ steps.check.outputs.web }}, ios/swiftui ${{ steps.check.outputs.ios }}, android/compose ${{ steps.check.outputs.android }}"
           fi
 
           # Content-only refresh: patch bump. npm version also creates the tag.
-          npm version patch -m "Release %s — corpus web/react ${{ steps.check.outputs.web }}, ios/swiftui ${{ steps.check.outputs.ios }}"
+          npm version patch -m "Release %s — corpus web/react ${{ steps.check.outputs.web }}, ios/swiftui ${{ steps.check.outputs.ios }}, android/compose ${{ steps.check.outputs.android }}"
 
           new_version=$(node -p "require('./package.json').version")
           echo "new_version=$new_version" >> "$GITHUB_OUTPUT"
@@ -190,6 +205,7 @@ jobs:
               echo ""
               echo "- web/react → \`${{ steps.check.outputs.web }}\`"
               echo "- ios/swiftui → \`${{ steps.check.outputs.ios }}\`"
+              echo "- android/compose → \`${{ steps.check.outputs.android }}\`"
             else
               echo "### Revision changed but no content diff — nothing published"
             fi

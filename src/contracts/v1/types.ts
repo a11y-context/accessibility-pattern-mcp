@@ -22,8 +22,9 @@
  *
  * Being listed here does NOT mean a stack ships content. A stack is only
  * populated if the bundled corpus/<stack>/ directory exists in this release,
- * which depends on what the corpus sync copied in. "android/compose" is
- * reserved and currently empty upstream.
+ * which depends on what the corpus sync copied in. Do not name which stacks
+ * are empty here -- that comment goes stale the week the stack ships, and the
+ * runtime already answers the question with CORPUS_UNAVAILABLE.
  */
 export type StackRef = "web/react" | "ios/swiftui" | "android/compose";
 
