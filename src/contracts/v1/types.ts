@@ -107,7 +107,7 @@ export type CodeSnippet = {
 
 export type GlobalRule = {
   id: string; // from the YAML fence inside the rule
-  title: string; // from "## Rule: Page Title"
+  title: string; // from the rule's H2, "## Page Title" (a leading "Rule:" is dropped)
   scope: RuleScope[]; // from YAML: scope: [page, layout]
   must_haves: string[];
   donts: string[];
