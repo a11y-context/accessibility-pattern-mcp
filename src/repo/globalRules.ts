@@ -128,8 +128,14 @@ export function parseGlobalRulesMarkdown(
 }
 
 /**
- * Splits the markdown content into rule blocks based on "## Rule: ..."
- * Slightly forgiving: allows extra spaces and different casing.
+ * Splits the markdown content into rule blocks, one per H2.
+ *
+ * Every H2 in a global_rules.md is a rule, and parseOneRule() rejects any block without
+ * its ```yaml id/scope fence, so a stray non-rule H2 fails loudly rather than slipping
+ * through. The "Rule:" prefix is optional: the corpus authored headings as
+ * "## Rule: Focus States" until it dropped the prefix for scannability, and either form
+ * yields the same title ("Focus States"). Accepting both lets the server ship before the
+ * corpus change and keeps any older snapshot readable.
  */
 function splitByH2Rule(markdown: string): Array<{ title: string; body: string }> {
   const lines = markdown.split("\n");
@@ -144,7 +150,7 @@ function splitByH2Rule(markdown: string): Array<{ title: string; body: string }>
   }
 
   for (const line of lines) {
-    const match = line.match(/^##\s+Rule:\s*(.*)\s*$/i);
+    const match = line.match(/^##\s+(?:Rule:\s*)?(.*?)\s*$/i);
     if (match) {
       push();
       currentTitle = match[1].trim();

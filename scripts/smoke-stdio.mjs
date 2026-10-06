@@ -97,6 +97,16 @@ try {
     bad.text
   );
 
+  // Every populated stack returns at least one Foundations rule. Without this, a
+  // parser that matched nothing returned an empty list and passed every other check:
+  // the scope filter echoes back whether or not any rules were found.
+  for (const stack of ["web/react", "ios/swiftui", "android/compose"]) {
+    const f = await callJson(client, "get_foundations", { stack });
+    if (f.isError && f.json?.error_code === "CORPUS_UNAVAILABLE") continue;
+    const n = f.json?.rules?.items?.length ?? 0;
+    check(`get_foundations returns rules (${stack}: ${n})`, !f.isError && n > 0, f.text?.slice(0, 200));
+  }
+
   const scoped = await callJson(client, "get_foundations", { stack: "web/react", scope: ["component"] });
   check(
     "get_foundations scope filter live",
