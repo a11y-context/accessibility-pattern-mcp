@@ -45,7 +45,7 @@
         "The invoking control declares dialog-trigger semantics — apply `aria-haspopup=\"dialog\"` to the trigger element.",
         "The dialog satisfies the following behavior contract (all six required):\n  - Focus moves into the dialog on open.\n  - Focus is trapped within the dialog while open.\n  - Escape closes the dialog.\n  - Focus returns to the invoking element on close.\n  - Background content is not focusable or reachable by keyboard or screen readers while open.\n  - Body scroll is prevented while open.",
         "Under native `<dialog>` + `.showModal()` (the Golden Pattern), these six behaviors are provided automatically by the browser. Under the manual `<div role=\"dialog\">` fallback (Customizable → Manual fallback), each is the implementation's responsibility.",
-        "Focus indicators on the dialog surface, close button, and any focusable content follow the [Foundations focus rule](/web/react/foundations#rule-focus-states)."
+        "Focus indicators on the dialog surface, close button, and any focusable content follow the Foundations focus rule (`global.focus-states`)."
       ],
       "use_when": [
         "Use when content appears in an overlay that blocks interaction with the underlying page.",
