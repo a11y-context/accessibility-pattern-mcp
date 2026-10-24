@@ -1,7 +1,7 @@
 {
   "cache_ttl_seconds": 86400,
   "contract_version": "1.0",
-  "count": 33,
+  "count": 34,
   "patterns": [
     {
       "aliases": [
@@ -776,6 +776,41 @@
         "progressbar",
         "reduced-motion",
         "status"
+      ]
+    },
+    {
+      "aliases": [
+        "choose one",
+        "mutually exclusive options",
+        "option buttons",
+        "radio buttons",
+        "radio group",
+        "radio list",
+        "segmented control",
+        "single choice"
+      ],
+      "id": "radio.group",
+      "selection_excerpt": {
+        "do_not_use_when": [
+          "Do not use when the user may select more than one option (use checkbox.group).",
+          "Do not use when the options are many or space is tight, so a collapsed single-value picker fits better (use select.native).",
+          "Do not use when the choice is a persistent on/off setting that takes effect immediately (use switch.basic), or a single yes/no choice submit"
+        ],
+        "use_when": [
+          "Use when the user picks exactly one option from a small set of mutually exclusive choices, all visible at once (e.g., \"Video quality\" with \"",
+          "Use when the options benefit from being compared side by side rather than hidden in a popup, typically 2–6 options."
+        ]
+      },
+      "stack": "web/react",
+      "status": "beta",
+      "summary": "A set of mutually exclusive options from which the user picks exactly one. Native <input type=\"radio\"> elements share one name inside a <fieldset> with a <legend>, so the browser provides single selection, a single tab stop, and arrow-key movement.",
+      "tags": [
+        "fieldset",
+        "form",
+        "form-control",
+        "group",
+        "radio",
+        "single-select"
       ]
     },
     {

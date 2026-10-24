@@ -7,7 +7,7 @@ slug: "/foundations"
 stack: "android/compose"
 rule_set: "baseline"
 status: "beta"
-summary: "Baseline accessibility rules applied across most Jetpack Compose UI work."
+summary: "Baseline accessibility rules applied across most Jetpack Compose UI work on Android phones and tablets, not Android TV, Google TV, or Fire TV."
 cache_ttl_seconds: 86400
 apply_policy:
   instruction: "Apply all MUST rules that match the current change scope. If the task does not touch a scope, do not introduce unrelated changes."
@@ -18,6 +18,8 @@ apply_policy:
 # Foundations
 
 The cross-cutting accessibility rules that apply across most Jetpack Compose work, independent of any single component. Each rule is a best practice an AI applies while authoring Compose code. Component patterns reference these rules rather than restating them.
+
+These rules cover Android phones and tablets. Android TV, Google TV, and Fire TV are out of scope: navigation there is by remote, the platforms' screen readers behave differently, and none of these rules has been checked on a TV. Do not apply them to code that runs only on a TV. Code in a module that the TV build also uses follows them as written, with that caveat.
 
 Verification (audits, contrast measurement, on-device and human review) is a QA concern and lives in the QA layer, not here.
 
@@ -275,7 +277,7 @@ scope: [layout]
 
 ### Must Haves
 - Mark each major section header with `Modifier.semantics { heading() }`. This sets the platform heading flag that TalkBack's reading controls use for its Headings granularity, which is the only way a user skips between sections.
-- Mark the title of a screen, a bottom sheet, or a dialog as a heading when it is rendered as content rather than supplied through a component's title slot.
+- Mark the title of a screen or a bottom sheet as a heading, including a title passed to a `TopAppBar`'s title slot, which none of Material's top app bars marks. Leave an `AlertDialog`'s title unmarked: TalkBack lands on it when the dialog opens, so a heading adds nothing the user needs (`dialog.alert`).
 
 ### Don'ts
 - Do not mark every bold or large text as a heading. A heading list that contains every label is as unusable as an empty one.

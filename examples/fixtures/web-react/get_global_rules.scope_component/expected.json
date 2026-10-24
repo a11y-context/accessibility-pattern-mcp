@@ -22,6 +22,33 @@
       {
         "acceptance_checks": [],
         "donts": [
+          "Do not rely on `aria-haspopup` to convey open or closed. It says the control opens something, not whether it is open.",
+          "Do not drop the attribute while collapsed (e.g., `aria-expanded={open || undefined}`, or rendering it only when open). A screen reader then announces the collapsed control with no state at all.",
+          "Do not leave the controlled element visible while `aria-expanded=\"false\"` (and vice versa).",
+          "Do not put `aria-expanded` and `aria-pressed` on the same control. It is announced as both a toggle and an expander, and neither state reads clearly."
+        ],
+        "id": "global.expanded-state",
+        "must_haves": [
+          "Any control that shows and hides another element exposes `aria-expanded=\"true\"` while that element is visible and `aria-expanded=\"false\"` while it is hidden.\n  - This covers disclosure buttons, accordion headers, menu buttons, navigation dropdown and submenu toggles, custom select triggers, combobox inputs, and popover triggers.",
+          "`aria-expanded` sits on the control the user operates (the `<button>`, or the combobox `<input>`), not on the element being shown or hidden.",
+          "`aria-expanded` changes in the same update that shows or hides the element, so the attribute and the visibility never disagree.",
+          "`aria-expanded` is present in both states. In React, `aria-expanded={open}` renders `\"true\"` or `\"false\"`.",
+          "The rule does not apply to controls whose state is carried by something else:\n  - A button that opens a modal dialog and moves focus into it (see `dialog.basic`).\n  - A toggle button whose state is on or off, which uses `aria-pressed` (see `button.toggle`).\n  - A tooltip trigger, which links its tooltip with `aria-describedby` (see `tooltip.basic`).\n  - A tab or a carousel picker, which selects one panel of a set with `aria-selected` or `aria-current` (see `tabs.basic`, `carousel.dots`)."
+        ],
+        "scope": [
+          "component"
+        ],
+        "snippets": [
+          {
+            "code": "<button\n  type=\"button\"\n  aria-expanded={open}\n  aria-controls=\"filters-panel\"\n  onClick={() => setOpen((value) => !value)}\n>\n  Filters\n</button>\n<div id=\"filters-panel\" hidden={!open}>\n  {/* filter controls */}\n</div>",
+            "language": "jsx"
+          }
+        ],
+        "title": "Expanded State"
+      },
+      {
+        "acceptance_checks": [],
+        "donts": [
           "Do not let a sticky or floating region overlap and fully conceal the element that currently has keyboard focus. ---"
         ],
         "id": "global.focus-not-obscured",
@@ -196,6 +223,27 @@
           }
         ],
         "title": "Non-text Contrast"
+      },
+      {
+        "acceptance_checks": [],
+        "donts": [
+          "Do not leave `<html>` without `lang`, or with an empty `lang=\"\"`.",
+          "Do not ship a template default that does not match the content (e.g., `lang=\"en\"` on a page served in Spanish). Screen readers pronounce the whole page with the wrong voice.",
+          "Do not put a language name in `lang` (e.g., `lang=\"english\"`). It is not a valid language tag, so screen readers cannot switch to the right voice. ---"
+        ],
+        "id": "global.page-language",
+        "must_haves": [
+          "Every document sets `lang` on the `<html>` element to the primary language of its content, as a language tag (e.g., `lang=\"en\"`, `lang=\"es-MX\"`).\n  - Set it where the `<html>` element is rendered: `index.html` in a client-rendered app, or the root layout in a framework that renders `<html>` (e.g., Next.js `app/layout.js`).",
+          "When the app switches its display language at runtime, update `document.documentElement.lang` to match.",
+          "A passage in a language other than the page's carries `lang` on the element that contains it (e.g., `<blockquote lang=\"fr\">`, a show title in its original language as `<span lang=\"ja\">`).\n  - Proper names, technical terms, and words that have passed into the surrounding language take no `lang`.",
+          "Each option in a language switcher that names a language in that language carries the matching `lang` (e.g., `<a lang=\"es\" href=\"...\">Español</a>`)."
+        ],
+        "scope": [
+          "component",
+          "screen"
+        ],
+        "snippets": [],
+        "title": "Page Language"
       },
       {
         "acceptance_checks": [],
